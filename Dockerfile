@@ -9,6 +9,8 @@ WORKDIR /django_app
 
 COPY requirements.txt .
 
+USER root
+
 RUN echo "source activate base" > ~/.bashrc
 ENV PATH /opt/conda/bin:$PATH
 ENV PYTHONPATH /usr/local/lib/python3.7/dist-packages:$PYTHONPATH
@@ -41,7 +43,9 @@ RUN apt-get install -y --no-install-recommends \
 RUN apt-get update && apt-get install -y firefox-esr 
 
 
+
 EXPOSE 8000
+
 COPY . .
 
 

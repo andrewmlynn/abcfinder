@@ -23,7 +23,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand a-color" href="{% url 'start' %}" style="font-size: 20px; font-weight:">ABC FINDER</a>
+            <a class="navbar-brand a-color" href="{% url 'start' %}" style="font-size: 20px; font-weight:">ABC-finder</a>
         </div>
         <div class="collapse navbar-collapse" id="example-navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -42,9 +42,7 @@
                 <li {% if active == "help" %} class="active" {% endif %}>
                     <a href="{% url 'help' %}" class="a-color" style="font-size: 16px">Help</a>
                 </li>
-                <li {% if active == "related" %} class="active" {% endif %}>
-                    <a href="{% url 'related' %}" class="a-color" style="font-size: 16px">Related</a>
-                </li>
+                
                 <li {% if active == "contact" %} class="active" {% endif %}>
                     <a href="{% url 'contact' %}" class="a-color" style="font-size: 16px">Contact</a>
                 </li>
