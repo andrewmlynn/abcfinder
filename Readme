@@ -1,0 +1,47 @@
+-------------------------------------------------------------
+-> Please use python3.6 or above
+
+1) Create a virtual environment
+	virtualenv -p python .env
+
+2) Activate virtual env.
+	source .env/bin/activate
+
+3) Install required dependancies
+	pip install -r requirements.txt
+
+4) If you create a new database then run this command other you can ignore it
+	python manage.py makemigrations
+	python manage.py migrate
+
+///////////////////////////////////////////////////////////////////////////////////////
+* Note:- Please activate your environment of all below commands and run in different terminal
+///////////////////////////////////////////////////////////////////////////////////////
+
+5) Run python server
+	python manage.py runserver
+
+6) Run celery server for background process
+	celery --app=webserver worker --loglevel=INFO
+
+7) If you want to check your background process by GUI tool
+   then run this command
+   celery flower -A webserver --address=127.0.0.1 --port=5555
+
+*******************************************************************************
+you can close any command by pressing ctrl+c.
+*******************************************************************************
+
+**** Email Setting ****
+please put some information in setting file for email configuration and email creadential should be validated
+
+	- EMAIL_HOST_USER / EMAIL_HOST_PASSWORD
+
+example :-
+	EMAIL_HOST_USER = "admin@gmail.com"
+	EMAIL_HOST_PASSWORD = "fakf32@12"
+
+
+------------------------------------------------------------------------------------
+* You will need to add geckodrive and geckodrive.exe file in solo_file folder.
+------------------------------------------------------------------------------------

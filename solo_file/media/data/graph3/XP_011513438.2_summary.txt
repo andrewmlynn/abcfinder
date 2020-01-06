@@ -1,0 +1,29 @@
+0 3369 inside
+3369 3390 transmembrane helix
+3390 3417 outside
+3417 3438 transmembrane helix
+3438 3449 inside
+3449 3470 transmembrane helix
+3470 3479 outside
+3479 3500 transmembrane helix
+3500 3507 inside
+3507 3528 transmembrane helix
+3528 3554 outside
+3554 3575 transmembrane helix
+3575 4027 inside
+4027 4048 transmembrane helix
+4048 4257 outside
+4257 4278 transmembrane helix
+4278 4290 inside
+4290 4311 transmembrane helix
+4311 4312 outside
+4312 4333 transmembrane helix
+4333 4338 inside
+4338 4359 transmembrane helix
+4359 4371 outside
+4371 4392 transmembrane helix
+4392 4409 inside
+4409 4430 transmembrane helix
+4430 4456 outside
+4456 4477 transmembrane helix
+4477 4861 inside

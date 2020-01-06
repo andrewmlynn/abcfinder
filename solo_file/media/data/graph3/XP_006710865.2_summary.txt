@@ -1,0 +1,13 @@
+0 12 inside
+12 33 transmembrane helix
+33 106 outside
+106 127 transmembrane helix
+127 147 inside
+147 168 transmembrane helix
+168 250 outside
+250 271 transmembrane helix
+271 329 inside
+329 350 transmembrane helix
+350 351 outside
+351 372 transmembrane helix
+372 683 inside

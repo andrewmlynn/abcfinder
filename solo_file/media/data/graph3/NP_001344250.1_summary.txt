@@ -1,0 +1,13 @@
+0 414 inside
+414 435 transmembrane helix
+435 446 outside
+446 467 transmembrane helix
+467 496 inside
+496 517 transmembrane helix
+517 526 outside
+526 547 transmembrane helix
+547 557 inside
+557 578 transmembrane helix
+578 638 outside
+638 659 transmembrane helix
+659 672 inside

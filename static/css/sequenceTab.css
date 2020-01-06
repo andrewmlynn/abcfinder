@@ -1,0 +1,64 @@
+table.table-fixed{
+    border-collapse: collapse;
+    line-height: normal;
+}
+
+table.table-fixed th, table.table-fixed td{
+    white-space:nowrap;
+    font-weight:normal;
+    background-color: #fff;
+}
+
+table.table-fixed th{
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+table.table-fixed th:first-child{
+    padding-left: 10px;
+}
+
+table.table-fixed tr.submitted td{
+    background-color: #D3D8E0;
+}
+
+table.table-fixed td, table.table-fixed th.sequence{
+    padding-left: 10px;
+    font-size: 18px;
+    font-family:Lucida Console,monospace;
+}
+
+table.table-fixed td span, table.table-fixed th.sequence span{
+    text-align: left;
+}
+
+table.table-fixed td span.mutation{
+    background-color: #ff4747 !important;
+    font-weight: bold;
+}
+
+table.table-fixed td span.charged{
+    color: #0019ff;
+}
+
+table.table-fixed td span.polar{
+    color: #ff00ff;
+}
+
+table.table-fixed td span.sulpheretted{
+    color: #F29F0F;
+}
+
+table.table-fixed td span.hydrophobic{
+    color: #00e0ca;
+}
+
+table.table-fixed td span.mutation-position{
+    background-color: #D3D8E0;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+}
+
+table.table-fixed th.sequence span.mutation-position{
+    background-color: #D3D8E0;
+}

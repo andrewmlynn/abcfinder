@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<!--resolve compatibility of IE-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<title>ABC-Finder: A web server for the inventory and topology prediction of ABC proteins.</title>
+<link rel="stylesheet" type="text/css" href="statics/bootstrap.mince0b.css?v=ec3bb52a00e176a7181d454dffaea219">
+<link rel="stylesheet" type="text/css" href="statics/ScoringWebStyle31d1.css?v=9dad6bbb9ffdf771a615ded67e37e972">
+<script>
+//var filepath_temp = location.href.split('/')[4];
+//document.getElementById("job_name").innerHTML = filepath_temp;
+function jobname() {
+var dots = window.setInterval( function() {
+var wait = document.getElementById("wait");
+if ( wait.innerHTML.length > 3 )
+wait.innerHTML = "";
+else
+wait.innerHTML += ".";
+}, 600);
+}
+</script>
+</head>
+<body onload="jobname()">
+<!-- welcome navbar -->
+<nav class="navbar navbar-default navbar-static-top " role="navigation">
+<div class="container">
+<div class="navbar-header" >
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#example-navbar-collapse">
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="index.html" style="font-size: 20px; font-weight: bold">webserverdemo Server</a>
+</div>
+<div class="collapse navbar-collapse" id="example-navbar-collapse">
+<ul class="nav navbar-nav pull-right">
+<li class="active">
+<a href="index.html" style="font-size: 16px">Home</a>
+</li>
+<li>
+<a href="help.html" style="font-size: 16px">Help</a>
+</li>
+<li>
+<a href="queue/index.html" style="font-size: 16px">Queue</a>
+</li>
+<li>
+<a href="papers.html" style="font-size: 16px">Papers</a>
+</li>
+<li>
+<a href="contact.html" style="font-size: 16px">Contact</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<!-- welcome navbar -->
+<!-- tab -->
+<div class="container">
+<div class="row">
+<div class="col-md-2 col-sm-3 col-xs-4">
+<img src="statics/images/logocc2e.png?v=2ed19abcacc01044b9293d99ed374505" class="img-responsive " id="index_img" />
+</div>
+<div class="col-md-10 col-sm-9 col-xs-8">
+<h1><span style="font-size: 40px; font-weight: bold">webserverdemo</span></h1>
+<h3><span>A web server for the demosss.</span></h3>
+</div>
+</div>
+<br>
+
+<br />
+<div class="tab-content">
+<!-- webserverdemo -->
+<div id="webserverdemo_submit" class="tab-pane fade in active">
+<div class="panel panel-default" >
+<div class="panel-heading">
+</div>
+<div class="panel-body">
+<div class="alert alert-success" align="center">
+<p><strong>webserverdemo</strong> combines <strong>ATTRACT</strong> for global  and <strong> </strong> </p>
+</div>
+<div class="alert alert-danger" align="center">
+<p>Please submit the <strong></strong> fastafie <strong> </strong>.</p>
+<p>You can check the <strong><a href="help.html" style="color: #aa200f">Help</a></strong> to be familiar with the workspace.</p>
+</div>
+<form class="form-horizontal " >
+<div class="form-group" >
+<div class="row">
+<div class="col-md-2 col-sm-3 col-xs-4 col-xs-push-2 col-sm-push-2 col-md-push-4">
+<span style="font-size: 16px">Job Name <i>(optional)</i></span>
+</div>
+<div class="col-md-3 col-sm-4 col-xs-4 col-xs-push-2 col-sm-push-3 col-md-push-4">
+<!--input file-->
+<span><input type="text" id="jobname_webserverdemo" class="form-control" name="jobname" placeholder="Letters, numbers or underline" autofocus="autofocus"></span>
+</div>
+</div>
+</div>
+<div class="form-group" >
+<div class="row">
+<div class="col-md-2 col-sm-3 col-xs-4 col-xs-push-2 col-sm-push-2 col-md-push-4">
+<span style="font-size: 16px">Email <i>(optional)</i></span>
+</div>
+<div class="col-md-3 col-sm-4 col-xs-4 col-xs-push-2 col-sm-push-3 col-md-push-4">
+
+<span><input type="email" id="email_webserverdemo" name="email" class="form-control" placeholder="Email address"></span>
+</div>
+</div>
+</div>
+<div class="form-group" >
+<div class="row">
+<div class="col-md-2 col-sm-3 col-xs-4 col-xs-push-1 col-sm-push-2 col-md-push-4">
+<span style="font-size: 16px">Input  seach.faa file</span>
+</div>
+<div class="col-md-3 col-sm-3 col-xs-3 col-sm-push-3 col-md-push-4">
+<!--input file-->
+<select name="rec_select" onchange="rec_Select(this)" style="height: 30px; width: 90px">
+<option value="file" selected="selected">&nbsp;fasta file File</option>
+
+</select>
+</div>
+<div class="col-md-4 col-sm-4 col-xs-5 col-sm-push-2 col-md-push-2">
+<div id="rec_upload" style="display: block;">
+<input name="rec_PDBfile1" id="rec_PDBfile1" style="height: 30px; width: 180px" type="file">
+</div>
+<div id="rec_id" style="display: none;">
+&nbsp;&nbsp;<input name="rec_PDBid" id="rec_PDBid" type="text" style="height: 30px; width: 157px" placeholder="PDB ID: Chain ID">
+</div>
+</div>
+</div>
+</div>
+<div class="form-group" >
+<div class="row">
+<div class="col-md-2 col-sm-3 col-xs-4 col-xs-push-1 col-sm-push-2 col-md-push-4">
+<span style="font-size: 16px"></span>
+</div>
+<div class="col-md-3 col-sm-3 col-xs-3 col-sm-push-3 col-md-push-4">
+
+</div>
+<div class="col-md-4 col-sm-4 col-xs-5 col-sm-push-2 col-md-push-2">
+<div id="lig_upload" style="display: block;">
+<input name="lig_PDBfile1" id="lig_PDBfile1" style="height: 30px; width: 180px" type="file">
+</div>
+<div id="lig_id" style="display:none">
+&nbsp;&nbsp;<input name="lig_PDBid" id="lig_PDBid" type="text" style="height: 30px; width: 157px" placeholder="PDB ID: Chain ID">
+</div>
+</div>
+</div>
+</div>
+<div class="form-group">
+<div class="col-md-5 col-sm-8 col-xs-10 col-xs-push-1 col-sm-push-2 col-md-push-4">
+<div class="panel panel-default">
+<div class="panel-heading">
+<h5 class="panel-title" align="center">
+<a data-toggle="collapse" data-parent="#accordion"
+href="#collapseOne">
+Advanced options <i>(optional)</i>
+</a>
+</h5>
+</div>
+<div id="collapseOne" class="panel-collapse collapse">
+<div class="panel-body">
+<div class="form-group">
+<div class="col-md-12">
+<p style="font-weight: bold;">Restraints</p>
+</div>
+<div class="col-md-12">
+<div class="input-group">
+<input type="text" id="constraint" name="constraint_content" class="form-control" placeholder="97:A;134:A;10, 98:A;138:A;9"><span class="input-group-addon"><a href="help.html#constraint_help">Help</a></span>
+</div>
+</div>
+</div>
+<div class="form-group">
+<div class="col-md-9">
+<div>
+<input name = 'webserverdemo_gbsa' id="webserverdemo_gbsa" value="yes" type='checkbox'>
+<label for="webserverdemo_gbsa"><span title="it takes much longer than the default settings" style="color: #5a6a7d;font-weight: bold;cursor: pointer;" id="model1">&nbsp &nbsp</span></label>
+</div>
+</div>
+<div class="col-md-3">
+<a href="result/example_rerank.html" >Example</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="form-group" >
+<div class="controls col-md-4 col-sm-4 col-xs-2 col-xs-push-5 col-sm-push-6 col-md-push-6">
+<input id="submit_webserverdemo_PDBcalc" class="btn btn-success" type="button" value="Submit" onclick="webserverdemo()" style="font-size: 16px"/>
+</div>
+</div>
+</form>
+<div class="row">
+<div class="col-md-5 col-sm-8 col-xs-8 col-xs-push-2 col-sm-push-2 col-md-push-4">
+<span style="font-weight: bold">Example:&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+<a href="statics/binaryDownload/fasta48e2.pdb?v=ba68354cb8d0deefd5d7737e58105b45" >fasta</a>
+<span>&nbsp&nbsp&nbsp&nbsp&nbsp/&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+<a href="result/example.html" >Result</a>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+<!-- MM/GBSA -->
+<div id="MMGBSA_submit" class="tab-pane fade" >
+<div class="panel panel-default" >
+<div class="panel-heading">
+</div>
+<div class="panel-body">
+<div class="alert alert-success" align="center">
+<p><strong>MM/GBSA</strong> is employed to predict the <strong>binding free energy</strong> and <strong>decomforse</strong> the free energy contributions to the binding free energy of a protein–protein complex in per-residue to help you analyze the binding structures.</p>
+</div>
+<div class="alert alert-danger" align="center">
+<p><strong>Warning!</strong> Please check the <strong><a href="help.html" style="color: #aa200f">Help</a></strong> when you first use MM/GBSA.</p>
+</div>
+<form class="form form-horizontal " enctype="multipart/form-data">
+<input type="hidden" name="_xsrf" value="2|7a73be8f|fe2322e10d2d8bd41e7ddbc772b51bb7|1575752548"/>
+<div class="form-group" >
+<div class="row">
+<div class="col-md-2 col-sm-3 col-xs-4 col-xs-push-2 col-sm-push-2 col-md-push-4">
+<span style="font-size: 16px">Job Name <i>(optional)</i></span>
+</div>
+<div class="col-md-3 col-sm-4 col-xs-4 col-xs-push-2 col-sm-push-3 col-md-push-4">
+<!--input file-->
+<span><input type="text" id="jobname_GBSA" class="form-control" name="jobname" placeholder="Letters, numbers or underline" autofocus="autofocus"></span> </div>
+</div>
+</div>
+<div class="form-group" >
+<div class="row">
+<div class="col-md-2 col-sm-3 col-xs-4 col-xs-push-2 col-sm-push-2 col-md-push-4">
+<span style="font-size: 16px">Email <i>(optional)</i></span>
+</div>
+<div class="col-md-3 col-sm-4 col-xs-4 col-xs-push-2 col-sm-push-3 col-md-push-4">
+<!--input file-->
+<span><input type="email" id="email_GBSA" name="email" class="form-control" placeholder="Email address"></span>
+</div>
+</div>
+</div>
+<div class="form-group" >
+<div class="row">
+<div class="col-md-2 col-sm-3 col-xs-4 col-xs-push-1 col-sm-push-2 col-md-push-4">
+<span style="font-size: 16px">Input Complex</span>
+</div>
+<div class="col-md-3 col-sm-3 col-xs-3 col-sm-push-3 col-md-push-4">
+<!--input file-->
+<select name="G_select" onchange="G_Select(this)" style="height: 30px; width: 90px">
+<option value="file" selected="selected">&nbsp;PDB File</option>
+<option value="pdbid" >&nbsp;PDB ID</option>
+</select>
+</div>
+<div class="col-md-4 col-sm-4 col-xs-5 col-sm-push-2 col-md-push-2">
+<div id="G_upload" style="display: block;">
+<input name="G_PDBfile1" id="G_PDBfile1" style="height: 30px; width: 180px" type="file">
+</div>
+<div id="G_id" style="display:none">
+&nbsp;&nbsp;<input name="G_PDBid" id="G_PDBid" type="text" style="height: 30px; width: 157px" placeholder="PDB ID">
+</div>
+</div>
+</div>
+</div>
+<div class="form-group" >
+<div class="row">
+<div class="col-md-2 col-sm-3 col-xs-4 col-xs-push-2 col-sm-push-2 col-md-push-4">
+<span style="font-size: 16px">Chain ID of Receptor</span>
+</div>
+<div class="col-md-3 col-sm-4 col-xs-4 col-xs-push-2 col-sm-push-3 col-md-push-4">
+<!--input file-->
+<span><input type="text" name="rec_chainid" id="rec_chainid" class="form-control" placeholder="chain ID (e.g. A or A;B)"></span>
+</div>
+</div>
+</div>
+<div class="form-group" >
+<div class="row">
+<div class="col-md-2 col-sm-3 col-xs-4 col-xs-push-2 col-sm-push-2 col-md-push-4">
+<span style="font-size: 16px">Chain ID of Ligand</i></span>
+</div>
+<div class="col-md-3 col-sm-4 col-xs-4 col-xs-push-2 col-sm-push-3 col-md-push-4">
+<!--input file-->
+<span><input name="lig_chainid" id="lig_chainid" type="text" class="form-control" placeholder="chain ID (e.g. C or C;D)"></span>
+</div>
+</div>
+</div>
+<div class="form-group" >
+<div class="controls col-md-4 col-sm-4 col-xs-2 col-xs-push-5 col-sm-push-6 col-md-push-6">
+<input id="submit_G_PDBcalc" class="btn btn-success" type="button" value="Submit" onclick="GBSA_Scoring()" style="font-size: 16px"/>
+</div>
+</div>
+</form>
+<div class="row">
+<div class="col-md-8 col-sm-11 col-xs-11 col-xs-push-1 col-sm-push-1 col-md-push-2">
+
+<a href="statics/binaryDownload/1SYX_complex51b7.pdb?v=2bec6a36299b86bd3f496126d5fa4b11" >Complex</a>
+<span>&nbsp&nbsp&nbsp&nbsp&nbsp/&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+<a href="javascript:void(0)" onclick="autofill_pdb(&#39;rec_chain&#39;,&#39;A&#39;)">Chain ID of Receptor</a>
+<span>&nbsp&nbsp&nbsp&nbsp&nbsp/&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+<a href="javascript:void(0)" onclick="autofill_pdb(&#39;lig_chain&#39;,&#39;B&#39;)" >Chain ID of Ligand</a>
+<span>&nbsp&nbsp&nbsp&nbsp&nbsp/&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+<a href="gbsa/example_gbsa.html" >Result</a>
+</div>
+</div>
+<div class="row">
+<div class="col-md-8 col-sm-11 col-xs-11 col-xs-push-1 col-sm-push-1 col-md-push-2">
+<span style="font-weight: bold">Example of PDB ID:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+<a href="javascript:void(0)" onclick="autofill_pdb(&#39;G_pdbid&#39;,&#39;1SYX&#39;)" >Complex</a>
+<span>&nbsp&nbsp&nbsp&nbsp&nbsp/&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+<a href="javascript:void(0)" onclick="autofill_pdb(&#39;rec_chain&#39;,&#39;A&#39;)">Chain ID of Receptor</a>
+<span>&nbsp&nbsp&nbsp&nbsp&nbsp/&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+<a href="javascript:void(0)" onclick="autofill_pdb(&#39;lig_chain&#39;,&#39;B&#39;)">Chain ID of Ligand</a>
+<span>&nbsp&nbsp&nbsp&nbsp&nbsp/&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+<a href="gbsa/example_gbsa.html" >Result</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- index_modal -->
+<div class="modal fade" id="index_success" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop='static'>
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-body" style="height: 80px">
+<div >
+<div class="alert alert-success" style="width: 565px">
+<span id="index_success_content" style="font-weight: bold" >Please wait. Your job is being uploading</span><span id="wait" style="font-weight: bold">....</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade" id="index" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+<div class="modal-body" style="height: 80px">
+<div >
+<div class="alert alert-danger" style="width: 565px">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+<span id="index_content" style="font-weight: bold" ></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- index_modal -->
+<div class="footer">
+<div class="container" align="center">
+<p><b class="copyright" >&copy; 2018 <a href="http://c"> Group</a></b> All Rights Reserved &nbsp&nbsp| &nbsp&nbspTotal Page Views: 14416 &nbsp&nbsp|&nbsp&nbsp
+<span style="vertical-align:-5px"><script type="text/javascript" src="http://ra.revolvermaps.com/0/0/3.js?i=0rdeompjjeu&amp;b=0&amp;s=20&amp;m=2&amp;cl=ffffff&amp;co=010020&amp;cd=aa0000&amp;v0=60&amp;v1=60&amp;r=1" async="async"></script></span></p>
+</div>
+</div>
+</body>
+<script src="statics/jquery-3.2.1.mined1c.js?v=c9f5aeeca3ad37bf2aa006139b935f0a" type="text/javascript"></script>
+<script src="statics/bootstrap.min7680.js?v=5869c96cc8f19086aee625d670d741f9" type="text/javascript"></script>
+<script src="statics/ScoringWeb88f0.js?v=c5b60039628636b8cad5f3cd7fef46e2" type="text/javascript"></script>
+
+<!-- Mirrored from cadd.zju.edu.cn/webserverdemo/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 07 Dec 2019 21:03:01 GMT -->
+</html>

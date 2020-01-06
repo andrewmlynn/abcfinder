@@ -1,0 +1,25 @@
+0 143 inside
+143 164 transmembrane helix
+164 207 outside
+207 228 transmembrane helix
+228 283 inside
+283 304 transmembrane helix
+304 305 outside
+305 326 transmembrane helix
+326 386 inside
+386 407 transmembrane helix
+407 418 outside
+418 439 transmembrane helix
+439 798 inside
+798 819 transmembrane helix
+819 843 outside
+843 864 transmembrane helix
+864 923 inside
+923 944 transmembrane helix
+944 947 outside
+947 968 transmembrane helix
+968 1026 inside
+1026 1047 transmembrane helix
+1047 1062 outside
+1062 1083 transmembrane helix
+1083 1384 inside

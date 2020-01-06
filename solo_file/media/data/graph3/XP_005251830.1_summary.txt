@@ -1,0 +1,31 @@
+0 22 inside
+22 43 transmembrane helix
+43 638 outside
+638 659 transmembrane helix
+659 681 inside
+681 702 transmembrane helix
+702 715 outside
+715 736 transmembrane helix
+736 744 inside
+744 765 transmembrane helix
+765 776 outside
+776 797 transmembrane helix
+797 805 inside
+805 826 transmembrane helix
+826 827 outside
+827 848 transmembrane helix
+848 1348 inside
+1348 1369 transmembrane helix
+1369 1655 outside
+1655 1676 transmembrane helix
+1676 1705 inside
+1705 1726 transmembrane helix
+1726 1736 outside
+1736 1757 transmembrane helix
+1757 1803 inside
+1803 1824 transmembrane helix
+1824 1853 outside
+1853 1874 transmembrane helix
+1874 1928 inside
+1928 1949 transmembrane helix
+1949 2263 outside

@@ -1,0 +1,291 @@
+{% load static %}
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    {% block title %}
+        <title>Web Server</title>
+    {% endblock %}
+ <link href="{% static 'assets/global/plugins/googleapis/googleapis.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/global/plugins/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/global/plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/global/plugins/uniform/css/uniform.default.css' %}" rel="stylesheet" type="text/css">
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN THEME STYLES -->
+
+<link href="{% static 'assets/global/css/plugins-md.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/admin/layout3/css/layout.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'assets/admin/layout3/css/themes/default.css' %}" rel="stylesheet" type="text/css" id="style_color">
+<link href="{% static 'assets/admin/layout3/css/custom.css' %}" rel="stylesheet" type="text/css">
+<!-- END THEME STYLES -->
+
+    <link rel="stylesheet" href="{% static 'css/team.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+    <link rel="stylesheet" href="{% static 'css/help.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="{% static 'wallop/css/wallop.min.css' %}" rel="stylesheet">    
+
+    {% block style %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <style type="text/css">
+            .custom-height{
+                /*height: 0px;*/
+                box-shadow:0px 1px 5px 1px grey;
+            }
+        </style>
+    {% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="{% static 'wallop/js/Wallop.min.js' %}"></script>
+</head>
+
+{% block body %}
+<body onload="jobname()">
+    <!-- welcome navbar -->
+    {% block navbar %}
+        {% include 'header.html' %}
+    {% endblock %}
+    <!-- welcome navbar -->
+
+    {% block container %}
+    <br></br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-4 col-xs-5">
+            <img src="{% static 'images/abc.png' %}" style="width:100%; height: 100%;" class="" id="index_img" />
+            </div>
+            <div class="col-md-9 col-sm-8 col-xs-7">
+            <h1 ><span style="font-size: 20px; font-weight: bold"> </span>
+            <!-- <span>A web server for the inventory and topology prediction of ABC proteins.</span></h1> -->
+            </div>
+        </div>
+    </div>
+            <br>
+    <div class="alert container alert-{{msg_class}} alert-dismissible text-center">
+        {% if msg %}
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>{{msg}}</strong>.
+        {% endif %}
+    </div>
+    <div class="container custom-height">
+        <div class="tab-content">
+            <!-- webserverdemo -->
+            <div id="webserverdemo_submit" class="tab-pane fade in active">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="text-center">SUBMIT YOUR JOB HERE</h4>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" action="." method="post" enctype="multipart/form-data" id="submit_form">
+                             {% csrf_token %}
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="data">
+                                        Provide a Input for your genomic sequences:
+                                        <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#info5">
+                                        <span class="glyphicon glyphicon-question-sign"></span>
+                                    </button>
+                                    </label>
+                                    <label class="btn btn-default btn-file">
+                                        <input type="file" id="search_file" name="search_file" accept=".faa,.fasta">
+                                    </label>
+                                </div>
+                            </div>
+                            <div style="width: 100%; height: 12px; border-bottom: 1px solid rgb(177, 177, 177); text-align: center">
+                              <span style="font-size: 14px; background-color: #F3F5F6; padding: 0 10px;color: rgb(177, 177, 177);font-weight: 600;(177, 177, 177);">OR<!--Padding is optional-->
+                              </span>
+                            </div><br>
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <label for="data">
+                                        Search Box:
+                                    </label><br>
+                                        <input type="text" id="search_text" name="search_text" class="form-control" placeholder="Debaryomyces hansenii" >
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-4">
+                                    <label for="email">Email (optional):</label>
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="We'll send you a link to the results">
+                                    <input class="form-control" name="confirm_email" type="hidden">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="job_title">A descriptive job title (optional):</label>
+                                    <input type="text" class="form-control" id="job_title" name="job_title">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-warning" id="advanced_button" onclick="openAdvanced()"><span class="glyphicon glyphicon-cog"></span>&nbsp; Advanced options</button>
+                             <div id="advanced" style="display:none;">
+                                <div class="form-group row">
+                                    <div class="col-md-8">
+                                        <label for="e_value_cutoff">Maximal permitted e-value:
+                                        <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#info4">
+                                            <span class="glyphicon glyphicon-question-sign"></span>
+                                        </button>
+                                        </label>
+                                        <input type="number" class="form-control" min="0" max="1" step="any" id="e_value_cutoff" name="e_value_cutoff" value="0.9" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-8">
+                                        <label for="identity_cutoff">Minimal percent of identity:
+                                        <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#info3">
+                                            <span class="glyphicon glyphicon-question-sign"></span>
+                                        </button></label>
+                                        <input type="number" class="form-control" min="0" max="100" step="any" id="identity_cutoff" name="identity_cutoff" value="5" required>
+                                    </div>
+                                </div>
+                    
+                            </div>
+                            <br><br>
+                            <button type="submit" id="btn_submit" class="btn btn-success"><span class="glyphicon glyphicon-cloud-upload"></span>&nbsp; Submit</button>
+                            <a href="{% url 'demo_example' %}" target="_blank" ><button type="button" class="btn btn-info">Load Example</button></a>
+                            <button type="reset" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>&nbsp; Reset</button>
+                        </form>
+                    </div>
+
+                <div class="row form-group">
+                    <div class="col-sm-5 "></div>
+                    <div class="col-sm-6 ">
+                        <a class="btn btn-default" href="{% static 'example/example_1.zip' %}" style="box-shadow: 1px 3px 10px">Example 1</a>
+                        <a class="btn btn-default" style="box-shadow: 1px 3px 10px" href="{% static 'example/example_2.zip' %}">Example 2</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+   <!-- Modals -->
+    <div class="modal fade" id="info5" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-title">Input specification</div>
+                </div>
+                <div class="modal-body">
+                    The input for the web server is a FASTA file either simply upload your fasta file, you can download it from 
+                    <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">NCBI</a>
+                    or simply enter exact name of your genome sequence For Example: Debaryomyces hansenii.
+                    <!-- <a href="https://linhost.info/2012/08/gzip-files-in-windows/" target="_blank">.tar.gz</a>) in which each file is in a -->
+                    <!-- <a href="https://www.ncbi.nlm.nih.gov/blast/fasta.shtml" target="_blank">FASTA format</a> containing genomic sequence of a different species.). -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="info1" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-title">A species name based on which the tree should be rooted</div>
+                </div>
+                <div class="modal-body"> <!--align="justify">-->
+                    For example, if the genomic sequence in a file named: "Efergusonii_ATCC_35469.fna" is the desired outgroup, than "Efergusonii_ATCC_35469" should be provided.
+                    Of note, the outgroup name is CASE-SENSITIVE and thus should IDENTICAL to the corresponding genomic file name (excluding its extension), otherwise, the outgroup will be ignored and the resulted tree will be unrooted (as if no outgroup was provided).
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="info2" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-title">The minimum required percent of gene members of an orthologs group that is required to be considered a core gene</div>
+                </div>
+                <div class="modal-body">
+                    For example:<br>
+                    (1) 100 means that for a gene to be considered core, all strains should have a member in the group.<br>
+                    (2) 50 means that for a gene to be considered core, at least half of the strains should have a member in the group.<br>
+                    (3) 0 means that every gene should be considered as a core gene.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="info3" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-title">The minimum percent of identity required for a pair of best reciprocal hits (lower values will be filtered out)</div>
+                </div>
+                <div class="modal-body">
+                    For example:<br>
+                    If the cutoff is set to 80, every best reciprocal hit pair with less than 80% identity will be ignored.
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="modal fade" id="info4" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="modal-title">The maxmimum permitted e-value for a pair of best reciprocal hits (higher values will be filtered out)</div>
+                </div>
+                <div class="modal-body">
+                    For example:<br>
+                    If the cutoff is set to 0.01, every best reciprocal hit pair with greater e-value will be ignored.
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    
+    {% block footer %}
+        {% include 'footer.html' %}
+    {% endblock %}
+</body>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'jquery-3.2.1.mined1c.js' %}" type="text/javascript">
+    </script>
+    <script src="{% static 'bootstrap.min7680.js' %}" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        function openAdvanced() {
+            var x = document.getElementById("advanced");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        $(document).on("change","#search_file",function(){
+            var FileSize = this.files[0].size / 1024 / 1024; // in MB
+            if (FileSize > 95) {
+                alert('File size exceeds 95 MB');
+                $("#btn_submit").attr("disabled","disabled");
+            } else {
+                $("#btn_submit").removeAttr("disabled");
+            }
+        });
+
+        $(document).on("submit","#submit_form",function(){
+            var fileSize = $("#search_file").val();
+            var search_text = $("#search_text").val();
+            if(fileSize || search_text){
+                return true;
+            }else{
+                alert("Please upload a file or search name");
+                return false;
+            }
+        });
+    </script>
+{% endblock %}
+</html>

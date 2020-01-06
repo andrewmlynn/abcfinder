@@ -1,0 +1,33 @@
+0 23 inside
+23 44 transmembrane helix
+44 1065 outside
+1065 1086 transmembrane helix
+1086 1112 inside
+1112 1133 transmembrane helix
+1133 1136 outside
+1136 1157 transmembrane helix
+1157 1158 inside
+1158 1179 transmembrane helix
+1179 1180 outside
+1180 1201 transmembrane helix
+1201 1202 inside
+1202 1223 transmembrane helix
+1223 1249 outside
+1249 1270 transmembrane helix
+1270 1745 inside
+1745 1766 transmembrane helix
+1766 1984 outside
+1984 2005 transmembrane helix
+2005 2018 inside
+2018 2039 transmembrane helix
+2039 2040 outside
+2040 2061 transmembrane helix
+2061 2066 inside
+2066 2087 transmembrane helix
+2087 2098 outside
+2098 2119 transmembrane helix
+2119 2137 inside
+2137 2158 transmembrane helix
+2158 2186 outside
+2186 2207 transmembrane helix
+2207 2595 inside

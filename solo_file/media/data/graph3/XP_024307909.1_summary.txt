@@ -1,0 +1,15 @@
+21 501 outside
+501 522 transmembrane helix
+522 531 inside
+531 552 transmembrane helix
+552 563 outside
+563 584 transmembrane helix
+584 610 inside
+610 631 transmembrane helix
+631 641 outside
+641 662 transmembrane helix
+662 672 inside
+672 693 transmembrane helix
+693 756 outside
+756 777 transmembrane helix
+777 786 inside

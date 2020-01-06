@@ -1,0 +1,29 @@
+0 22 inside
+22 43 transmembrane helix
+43 3567 outside
+3567 3588 transmembrane helix
+3588 3615 inside
+3615 3636 transmembrane helix
+3636 3647 outside
+3647 3668 transmembrane helix
+3668 3677 inside
+3677 3698 transmembrane helix
+3698 3752 outside
+3752 3773 transmembrane helix
+3773 4225 inside
+4225 4246 transmembrane helix
+4246 4454 outside
+4454 4475 transmembrane helix
+4475 4487 inside
+4487 4508 transmembrane helix
+4508 4509 outside
+4509 4530 transmembrane helix
+4530 4535 inside
+4535 4556 transmembrane helix
+4556 4568 outside
+4568 4589 transmembrane helix
+4589 4606 inside
+4606 4627 transmembrane helix
+4627 4653 outside
+4653 4674 transmembrane helix
+4674 5058 inside

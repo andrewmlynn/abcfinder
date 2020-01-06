@@ -1,0 +1,11 @@
+0 434 inside
+434 455 transmembrane helix
+455 465 outside
+465 486 transmembrane helix
+486 510 inside
+510 531 transmembrane helix
+531 545 outside
+545 566 transmembrane helix
+566 582 inside
+582 603 transmembrane helix
+603 641 outside

@@ -1,0 +1,52 @@
+{% load static %}
+<style type="text/css">
+    .nav-back{
+        background-color:#00897b !important;
+    }
+    .a-color{
+        color: white !important;
+        background-color:#00897b !important;
+    }
+    nav ul a:hover{
+        background-color: rgba(0,0,0,0.1) !important;
+    }
+    /*.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover*/
+</style>
+<nav class="navbar navbar-inverse navbar-static-top nav-back " role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <div class="col-sm-4">
+                <!-- <img src="{% static 'images/logocc2e.png' %}" class="img-responsive "/> -->
+            </div>
+            <button type="button" class="navbar-toggle a-color" data-toggle="collapse" data-target="#example-navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand a-color" href="{% url 'start' %}" style="font-size: 20px; font-weight:">ABC-finder</a>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li {% if active == "start" %} class="active" {% endif %}>
+                    <a href="{% url 'start' %}" class="a-color" style="font-size: 16px">Home</a>
+                </li>
+                <li {% if active == "home" %} class="active" {% endif %}>
+                    <a href="{% url 'home' %}" class="a-color" style="font-size: 16px">Run</a>
+                </li>
+                <li {% if active == "queue" %} class="active" {% endif %}>
+                    <a href="{% url 'queue_list' %}" class="a-color" style="font-size: 16px">Queue</a>
+                </li>
+                <li {% if active == "team" %} class="active" {% endif %}>
+                    <a href="{% url 'team' %}" class="a-color" style="font-size: 16px">Team</a>
+                </li>
+                <li {% if active == "help" %} class="active" {% endif %}>
+                    <a href="{% url 'help' %}" class="a-color" style="font-size: 16px">Help</a>
+                </li>
+                
+                <li {% if active == "contact" %} class="active" {% endif %}>
+                    <a href="{% url 'contact' %}" class="a-color" style="font-size: 16px">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

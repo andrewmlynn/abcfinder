@@ -1,0 +1,13 @@
+0 419 inside
+419 440 transmembrane helix
+440 451 outside
+451 472 transmembrane helix
+472 501 inside
+501 522 transmembrane helix
+522 531 outside
+531 552 transmembrane helix
+552 562 inside
+562 583 transmembrane helix
+583 643 outside
+643 664 transmembrane helix
+664 677 inside

@@ -1,0 +1,27 @@
+0 396 outside
+396 417 transmembrane helix
+417 440 inside
+440 461 transmembrane helix
+461 473 outside
+473 494 transmembrane helix
+494 502 inside
+502 523 transmembrane helix
+523 534 outside
+534 555 transmembrane helix
+555 578 inside
+578 599 transmembrane helix
+599 791 outside
+791 812 transmembrane helix
+812 1087 inside
+1087 1108 transmembrane helix
+1108 1382 outside
+1382 1403 transmembrane helix
+1403 1432 inside
+1432 1453 transmembrane helix
+1453 1463 outside
+1463 1484 transmembrane helix
+1484 1495 inside
+1495 1516 transmembrane helix
+1516 1580 outside
+1580 1601 transmembrane helix
+1601 1999 inside

@@ -1,0 +1,85 @@
+.image-center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+.tabs .tab a.active {
+    background-color: transparent;
+    color: #ff9800;
+}
+.tabs .tab a {
+    color: #FFC774;
+}
+.tabs .tab a:hover,.tabs .tab a.active {
+    background-color: transparent;
+    color: #FFC774 !important;
+}
+.tabs .indicator {
+    background-color: #ff9800;
+}
+.tabs .tab a:focus,.tabs .tab a:focus.active {
+    background-color: rgba(246,178,181,0.2);
+}
+
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    margin-left: inherit !important;
+    flex: 0 1 33%;
+    flex-basis: 33%;
+    position:relative;
+}
+
+@media (max-width: 700px) {
+    .card {
+        flex: 0 1 100%;
+        position:relative;
+    }
+}
+
+.card .content{
+    padding: 5px;
+    margin-bottom: 15px;
+}
+
+.card-caption{
+    position:absolute;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.card .card-caption a:hover {
+    color: #ffd8a6;
+}
+.card-image{
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.card .card-caption a {
+    color: #ffab40;
+    margin-right: 20px;
+    -webkit-transition: color .3s ease;
+    transition: color .3s ease;
+    text-transform: uppercase;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+a.btn-flat i{
+    font-size: inherit;
+}

@@ -1,0 +1,13 @@
+0 224 inside
+224 245 transmembrane helix
+245 317 outside
+317 338 transmembrane helix
+338 387 inside
+387 408 transmembrane helix
+408 409 outside
+409 430 transmembrane helix
+430 501 inside
+501 522 transmembrane helix
+522 530 outside
+530 551 transmembrane helix
+551 841 inside

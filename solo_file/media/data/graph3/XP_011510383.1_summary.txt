@@ -1,0 +1,13 @@
+0 195 inside
+195 216 transmembrane helix
+216 239 outside
+239 260 transmembrane helix
+260 318 inside
+318 339 transmembrane helix
+339 340 outside
+340 361 transmembrane helix
+361 421 inside
+421 442 transmembrane helix
+442 456 outside
+456 477 transmembrane helix
+477 763 inside

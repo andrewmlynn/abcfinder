@@ -1,0 +1,133 @@
+a{
+	cursor:pointer
+}
+.main_section{
+	border:1px solid #99bbe8;
+	background-color: #fff;
+	padding-top: 10px;
+}
+.main_section h3{
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+.help_section{
+	padding: 0px 30px 0px 30px;
+	margin: 0px 10px 10px 10px;
+}
+.sidebar{
+	width: 200px;
+	position: fixed;
+	top: 230px;
+	right: 0px;
+}
+.sidebar a:hover,.sidebar a:focus{
+	border-left: 1px solid #5d6bb0;
+}
+.sidebar .group_title{
+	pointer-events: none;
+	background:#00897b !important;
+	font-weight:bold;
+	color:#fff;
+}
+
+.image img{
+	max-width:100%;
+	padding:15px;
+	border: 1px solid #eeeeee;
+}
+
+.top_title{
+	font-size: 16px;
+	font-weight: bold;
+	color: #ff8709;
+	margin: 10px;
+	margin-top: 20px;
+}
+
+.title{
+	margin-top: 5px !important;
+	margin-bottom: 5px !important;
+	color: #20b2aa;
+	margin: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 18px !important;
+}
+
+.description{
+	text-indent:1em; 
+	margin-bottom:5px;
+	text-align: justify;
+}
+.image{
+	margin-bottom:10px;
+}
+#tutorial{
+	padding-top:20px;
+}
+.sidebar {
+    width: 183px;
+    position: fixed;
+    top: 230px;
+    right: 30px;
+}
+.date{
+	display: inline-block;
+	width: 10%;
+	color: red;
+}
+.firefox .description,
+.ie .description,
+.chrome .description,
+.safari .description{
+	text-indent:4em;
+}
+.table{
+	border: 2px solid #eee;
+	border-collapse: separate;
+	border-spacing: 5px;
+}
+.table th{
+	text-align:center;
+}
+
+#tutorial_table tr td:nth-child(3){
+	width:35%
+}
+.table tr td:first-child{
+	font-weight:bold !important;
+}
+.help_section .nav > li > a,.nav > li > a:focus, .nav > li > a:hover {
+    text-decoration: none;
+    background-color: white;
+}
+.table th{
+	background-color: #3bb18d;
+	color: #fff;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.table tr td,.table th{
+	text-align: center;
+	vertical-align: middle !important;
+}
+.table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+    border: none !important;
+}
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: none !important;
+}
+.attention{
+	color: red;
+	font-weight:bold;
+}
+.help_option_li .help_tab_link{
+	padding: 5px 15px;
+	margin: 0px 3px;
+}
+.help_section .active .help_tab_link,.help_section .active .help_tab_link:hover,.help_section .active .help_tab_link:focus{
+	background-color: #00897b !important;
+}

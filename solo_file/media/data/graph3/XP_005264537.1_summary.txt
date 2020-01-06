@@ -1,0 +1,11 @@
+0 384 inside
+384 405 transmembrane helix
+405 420 outside
+420 441 transmembrane helix
+441 468 inside
+468 489 transmembrane helix
+489 498 outside
+498 519 transmembrane helix
+519 529 inside
+529 550 transmembrane helix
+550 558 outside

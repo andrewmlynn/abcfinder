@@ -1,0 +1,18 @@
+	#toast-container {
+		min-width: 10%;
+		top: 25%;
+		right: 50%;
+		transform: translateX(50%) translateY(50%);
+	}
+	
+	.bg-error{
+		background-color: #ee6e73;
+	}
+
+	.bg-success{
+		background-color: #c9f0dd;
+		color: #0c3c41;
+	}
+    #map {
+        height: 400px;
+    }
