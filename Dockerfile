@@ -48,4 +48,4 @@ EXPOSE 8000
 
 COPY . .
 
-
+ENTRYPOINT ["/docker-entrypoint.sh"]

@@ -8,7 +8,10 @@ from app.models import Process
 from app.tasks import generate_process, call_search_process
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import ContactForm
-
+from django.contrib import messages
+from django.shortcuts import redirect
+from django.core.mail import EmailMessage
+from django.template.loader import get_template
 # Get current timestamp
 def get_timestamp():
     return calendar.timegm(time.gmtime())
@@ -162,7 +165,43 @@ def contact(request):
  
         if form.is_valid():
             form.save()
-            return render(request, 'base.html')
+            messages.success(request, 'Success! Thank you for your feedback.')
+            
+            contact_subject = request.POST.get(
+                'subject'
+            , '')
+
+            contact_name = request.POST.get(
+                'name'
+            , '')
+
+            contact_email = request.POST.get(
+                'email'
+            , '')
+
+            feedback_content = request.POST.get('feedback', '')
+
+            # Email the profile with the
+            # contact information
+            template = get_template('contact_template.txt')
+            context = {
+                'contact_subject': contact_subject,
+                'contact_name': contact_name,
+                'contact_email': contact_email,
+                'form_content': feedback_content,
+            }
+            content = template.render(context)
+
+            email = EmailMessage(
+                "New contact form submission",
+                content,
+                "Your website" +'',
+                ['abcfinder47@gmail.com'],
+                headers = {'Reply-To': contact_email }
+            )
+            email.send()      
+        
+            return redirect('contact')
     else:
         form = ContactForm()
     return render(request, 'contact.html',{'form': form})

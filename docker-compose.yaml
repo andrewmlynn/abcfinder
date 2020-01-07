@@ -8,10 +8,14 @@ services:
     volumes:
       - ./db/:/root/db/
   redis:
-    image: "bitnami/redis"
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-    command: /run.sh --maxmemory 1024mb  
+    image: "redis"
+    volumes:
+      - ./myredis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379"
+    entrypoint: redis-server --appendonly yes
+    restart: always
+ 
   web:
     #image: "django_image:latest"
     build: .
@@ -23,6 +27,7 @@ services:
     depends_on:
       - db
       - redis
+      - celery
   celery:
     build: .
     command: celery --app=webserver worker --loglevel=INFO
@@ -47,5 +52,5 @@ services:
         reservations:
           cpus: '0.25'
           memory: 2G
-
-
+volumes:
+  redis-data:
