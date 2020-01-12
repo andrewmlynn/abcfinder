@@ -1,6 +1,6 @@
 [![travis](https://travis-ci.org/GITHUB_USERNAME/ABC-finder-webserver.svg?branch=master)](https://travis-ci.com/lynngroup/ABC-finder-webserver)
 ##
-![abc-finder-webserver](https://i.ibb.co/fqVfbbn/abc-finder.png)
+![abc-finder-webserver](https://github.com/lynngroup/abcfinder/blob/master/static/images/abc.png)
 ##
 # Overview 
 ABC-Finder i.e., A Docker-based package for the identification of ABC proteins in all organisms, and downstream analysis and visualization of the topology of ABC proteins using an interactive web browser. ABC-Finder is built and deployed in a Linux container, making it scalable for many concurrent users on our servers and also enabling users to download and run ABC-Finder locally. Overall, ABC-Finder is an extremely convenient, portable and platform-independent package for the identification and subsequent domain prediction of ABC proteins. 
