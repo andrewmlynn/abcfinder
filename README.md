@@ -76,4 +76,4 @@ where CMD should be replaced by the specific command line invocation of ABC-find
 
 Please submit bug reports and feature requests to the issue tracker on GitHub:
 
-[ABC-finder-webserver issue tracker](https://github.com/lynngroup/ABC-finder-webserver/issues)
+[ABC-finder-webserver issue tracker](https://github.com/lynngroup/abcfinder/issues)
