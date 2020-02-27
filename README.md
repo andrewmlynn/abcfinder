@@ -7,7 +7,7 @@ ABC-Finder i.e., A Docker-based package for the identification of ABC proteins i
 
 # Licence
 
-This program is released as open source software under the terms of [MIT License](https://github.com/lynngroup/abcfinder/blob/master/LICENSE).
+This program is released as open source software under the terms of [GNU GPLv3](https://github.com/lynngroup/abcfinder/blob/master/LICENSE).
 
 # Installing
 
