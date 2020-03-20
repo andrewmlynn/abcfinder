@@ -18,14 +18,10 @@ RUN . /opt/conda/etc/profile.d/conda.sh && \
     conda install -c plotly -y plotly  plotly-orca  && \
     conda install -c conda-forge -y  kombu biopython zipp selenium matplotlib kiwisolver flower django-widget-tweaks zip poppler geckodriver celery && \
     conda install -c anaconda pip  redis six  psutil scipy  requests numpy pandas jsonschema psutil psycopg2 django beautifulsoup4 && \
-    #conda install -c auto django-chartjs && \ 
     conda install -c bioconda -y hmmer wkhtmltopdf cd-hit && \
     pip  install redis imgkit pdfkit  six django-chartjs  && \
     apt-get update && \
     apt-get install -y python3-pip && \
-    #pip3 install six && \
-   #pip3 install Django && \
-   #pip3 install -r requirements.txt && \ 
     conda clean -y --all
 
 # Setup the webdriver
