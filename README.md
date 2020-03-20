@@ -1,4 +1,4 @@
-[![travis](https://travis-ci.org/GITHUB_USERNAME/ABC-finder-webserver.svg?branch=master)](https://travis-ci.com/lynngroup/ABC-finder-webserver)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3718634.svg)](https://doi.org/10.5281/zenodo.3718634)
 ##
 ![abc-finder-webserver](https://github.com/lynngroup/abcfinder/blob/master/static/images/abc.png)
 ##
