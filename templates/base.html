@@ -7,7 +7,7 @@
     <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
     {% block title %}
-        <title>ABC Finde: A containerized web server for the inventory and topology prediction of ABC proteins.</title>
+        <title>ABC-finder</title>
     {% endblock %}
  <link href="{% static 'assets/global/plugins/googleapis/googleapis.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'assets/global/plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
@@ -107,7 +107,7 @@
                                     <label for="data">
                                         Search Box:
                                     </label><br>
-                                        <input type="text" id="search_text" name="search_text" class="form-control" placeholder="Debaryomyces hansenii" >
+                                        <input type="text" id="search_text" name="search_text" class="form-control" placeholder="Candida auris" >
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -118,28 +118,28 @@
                                 </div>
                                 <div class="col-md-4">
                                     <label for="job_title">A descriptive job title (optional):</label>
-                                    <input type="text" class="form-control" id="job_title" name="job_title">
+                                    <input type="text" class="form-control" id="job_title" name="job_title" placeholder="Letters, numbers or underline">
                                 </div>
                             </div>
                             <button type="button" class="btn btn-warning" id="advanced_button" onclick="openAdvanced()"><span class="glyphicon glyphicon-cog"></span>&nbsp; Advanced options</button>
                              <div id="advanced" style="display:none;">
                                 <div class="form-group row">
                                     <div class="col-md-8">
-                                        <label for="e_value_cutoff">Maximal permitted e-value:
+                                        <label for="sequence identity threshold">sequence identity threshold, default 0.9:
                                         <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#info4">
                                             <span class="glyphicon glyphicon-question-sign"></span>
                                         </button>
                                         </label>
-                                        <input type="number" class="form-control" min="0" max="1" step="any" id="e_value_cutoff" name="e_value_cutoff" value="0.9" required>
+                                        <input type="number" class="form-control" min="0.4" max="1.0" step="any" id="sequence identity threshold" name="sequence identity threshold" value="0.9" required>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-md-8">
-                                        <label for="identity_cutoff">Minimal percent of identity:
+                                        <label for="identity_cutoff">word_length, default 5:
                                         <button type="button" class="btn btn-lg" data-toggle="modal" data-target="#info3">
                                             <span class="glyphicon glyphicon-question-sign"></span>
                                         </button></label>
-                                        <input type="number" class="form-control" min="0" max="100" step="any" id="identity_cutoff" name="identity_cutoff" value="5" required>
+                                        <input type="number" class="form-control" min="2" max="5" step="any" id="identity_cutoff" name="word_length" value="5" required>
                                     </div>
                                 </div>
                     
@@ -154,8 +154,10 @@
                 <div class="row form-group">
                     <div class="col-sm-5 "></div>
                     <div class="col-sm-6 ">
-                        <a class="btn btn-default" href="{% static 'example/Candida_glabrata.zip' %}" style="box-shadow: 1px 3px 10px">Example 1</a>
-                        <a class="btn btn-default" style="box-shadow: 1px 3px 10px" href="{% static 'example/human.zip' %}">Example 2</a>
+                        <a class="btn btn-default" href="{% static 'example/Candida_glabrata.zip' %}" style="box-shadow: 1px 3px 10px">Candida_glabrata</a>
+                        <a class="btn btn-default" style="box-shadow: 1px 3px 10px" href="{% static 'example/Candida_auris.zip' %}">Candida_auris</a>
+                        <a class="btn btn-default" style="box-shadow: 1px 3px 10px" href="{% static 'example/Debaryomyces_hansenii.zip' %}">Debaryomyces_hansenii</a>
+
                     </div>
                 </div>
             </div>
@@ -182,49 +184,21 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="info1" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <div class="modal-title">A species name based on which the tree should be rooted</div>
-                </div>
-                <div class="modal-body"> <!--align="justify">-->
-                    For example, if the genomic sequence in a file named: "Efergusonii_ATCC_35469.fna" is the desired outgroup, than "Efergusonii_ATCC_35469" should be provided.
-                    Of note, the outgroup name is CASE-SENSITIVE and thus should IDENTICAL to the corresponding genomic file name (excluding its extension), otherwise, the outgroup will be ignored and the resulted tree will be unrooted (as if no outgroup was provided).
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="info2" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <div class="modal-title">The minimum required percent of gene members of an orthologs group that is required to be considered a core gene</div>
-                </div>
-                <div class="modal-body">
-                    For example:<br>
-                    (1) 100 means that for a gene to be considered core, all strains should have a member in the group.<br>
-                    (2) 50 means that for a gene to be considered core, at least half of the strains should have a member in the group.<br>
-                    (3) 0 means that every gene should be considered as a core gene.
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div class="modal fade" id="info3" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <div class="modal-title">The minimum percent of identity required for a pair of best reciprocal hits (lower values will be filtered out)</div>
+                    <div class="modal-title">-n word_length, default 5</div>
                 </div>
                 <div class="modal-body">
-                    For example:<br>
-                    If the cutoff is set to 80, every best reciprocal hit pair with less than 80% identity will be ignored.
+                    For example: Choose'of'word'size <br>
+                    -n 5 for thresholds 0.7 ~ 1.0 <br>
+                    -n 4 for thresholds 0.6 ~ 0.7 <br>
+                    -n 3 for thresholds 0.5 ~ 0.6 <br>
+                    -n 2 for thresholds 0.4 ~ 0.5 <br>
                 </div>
             </div>
         </div>
@@ -235,11 +209,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <div class="modal-title">The maxmimum permitted e-value for a pair of best reciprocal hits (higher values will be filtered out)</div>
+                    <div class="modal-title">-c sequence identity threshold, default 0.9 this is the default cd-hit's "global sequence identity" </div>
                 </div>
                 <div class="modal-body">
                     For example:<br>
-                    If the cutoff is set to 0.01, every best reciprocal hit pair with greater e-value will be ignored.
+                    0.9, means 90% identity, is the clustering threshold.calculated as: number of identical amino acids in alignment divided by the full length of the shorter sequence
                 </div>
             </div>
         </div>

@@ -1,0 +1,13 @@
+0 147 inside
+147 168 transmembrane helix
+168 197 outside
+197 218 transmembrane helix
+218 279 inside
+279 300 transmembrane helix
+300 301 outside
+301 322 transmembrane helix
+322 386 inside
+386 407 transmembrane helix
+407 417 outside
+417 438 transmembrane helix
+438 799 inside

@@ -216,7 +216,7 @@ def solo_fnc1():
 
     color = 'r'
     ax1.set_ylabel('score', color=color)
-    ax1.plot(xnew, y2_new, color=color, linewidth=5)
+    ax1.plot(xnew, y2_new, color=color, linewidth=20)
     ax1.tick_params(axis='y', labelcolor=color)
     ax1.xaxis.set_ticks(np.arange(0, 460, 40))
 
@@ -224,7 +224,7 @@ def solo_fnc1():
 
     color = 'k'
     ax2.set_ylabel('E-value', color=color)
-    ax2.plot(xnew, y1_new, color=color, linewidth=5)
+    ax2.plot(xnew, y1_new, color=color, linewidth=20)
     ax2.tick_params(axis='y', labelcolor=color)
 
     y_labels = ax2.get_yticks()
@@ -272,13 +272,13 @@ def solo_fnc1():
         x=xnew,
         y=y1_new,
         name='E-value',
-        line={'color': 'rgba (0, 0, 0, 1)', 'dash': 'solid', 'width': 2.0}
+        line={'color': 'rgba (0, 0, 0, 1)', 'dash': 'solid', 'width': 5.0}
     )
     trace2 = go.Scatter(
         x=xnew,
         y=y2_new,
         name='score',
-        line={'color': 'rgba (255, 0, 0, 1)', 'dash': 'solid', 'width': 2.0},
+        line={'color': 'rgba (255, 0, 0, 1)', 'dash': 'solid', 'width': 5.0},
         yaxis='y2'
     )
     data = [trace1, trace2]
@@ -485,7 +485,7 @@ def drawable(filename, plot_path):
             pos_end = int(params[1])
             mark = str(params[2])
             if mark.find("in") != -1:
-                if (pos_end - pos_start > 275):
+                if (pos_end - pos_start > 50):
                     flag = True
             elif mark.find("notop") != -1:
 
@@ -826,7 +826,7 @@ def getPlotly2D_3(plot_path):
                                                     # print (int(float(score_algo)))
                                                     # print(int(float(hmm_from_algo)))
                                                     # print(int(float(hmm_to_algo)))
-                                                    if ((int(float(score_algo)) >= 59) and (
+                                                    if ((int(float(score_algo)) >= 30) or  (
                                                             int(float(hmm_from_algo)) == 1)):
                                                         if ((int(float(hmm_to_algo)) <= 170) and (
                                                                 int(float(hmm_to_algo)) >= 150)):
@@ -989,39 +989,6 @@ def getPlotly2D_3(plot_path):
     ind_blue = 0
     ind_red = 0
     #print(posyList)
- #satrt here if  <3 TMH present between two NBD consider it as single line   
-    dcv_cnt = []
-    for data_ndx9, data_vd in enumerate(markList):
-        if data_vd == 'i' or data_vd == 'n':
-            dcv_cnt.append(data_ndx9)
-    #print(dcv_cnt)
-    fnal_aay = []
-    if dcv_cnt != []:
-        if dcv_cnt[0] != 0:
-            dmmy_aaay = (markList[0:dcv_cnt[0]])
-            for cdc in dmmy_aaay:
-                fnal_aay.append(cdc)
-    for lndc, ltdc in enumerate(dcv_cnt):
-        dmmy_aaay = []
-        if lndc != len(dcv_cnt) - 1:
-            dmmy_aaay = (markList[ltdc:dcv_cnt[lndc + 1]])
-            print(dmmy_aaay)
-            bxcnt = sum('t' in item for item in dmmy_aaay)
-            print(bxcnt)
-            if bxcnt != 0 and bxcnt < 3:
-                vc = 0
-                for lndc9, ltdc9 in enumerate(dmmy_aaay):
-                    if ltdc9 == 't':
-                        dmmy_aaay[lndc9] = 'o'
-            for cdc in dmmy_aaay:
-                fnal_aay.append(cdc)
-    if fnal_aay != []:
-        dmmy_aaay = (markList[dcv_cnt[-1]:len(markList)])
-        for cdc in dmmy_aaay:
-            fnal_aay.append(cdc)
-
-    markList=fnal_aay
-# end here if  <3 TMH present between two NBD consider it as single line 
     for ele in xList:
         pos_y = posyList[ind_1]
         mark = markList[ind_1]
@@ -1089,12 +1056,12 @@ def getPlotly2D_3(plot_path):
                 if ind_blue == 0:
                     trace = go.Scatter(x=[xmin, xmax], y=[y + pos_y, y + pos_y], name='Nucleotide Binding Domains', mode='lines',
                                        showlegend=True,orientation = 'v',
-                                       line=dict(dash='solid', color='rgb (0, 0, 255)', width=80))
+                                       line=dict(dash='solid', color='rgb (0, 0, 255)', width=100))
                     traceList.append(trace)
                     ind_blue = 1
                 else:
                     trace = go.Scatter(x=[xmin, xmax], y=[y + pos_y, y + pos_y], mode='lines', showlegend=False,orientation = 'v',
-                                       line=dict(dash='solid', color='rgb (0, 0, 255)', width=80))
+                                       line=dict(dash='solid', color='rgb (0, 0, 255)', width=100))
                     traceList.append(trace)
             traceList.append(tracedown)
             traceList.append(traceup)
@@ -1118,12 +1085,12 @@ def getPlotly2D_3(plot_path):
             # Rectangle
             if ind_red == 0:
                 trace = go.Scatter(x=[x1, x2], y=[pos_y, pos_y], name='Transmembrane helix', mode='lines',orientation = 'v',
-                                   showlegend=True, line=dict(dash='solid', color='rgb (255, 0, 0)', width=40))
+                                   showlegend=True, line=dict(dash='solid', color='rgb (255, 0, 0)', width=100))
                 traceList.append(trace)
                 ind_red = 1
             else:
                 trace = go.Scatter(x=[x1, x2], y=[pos_y, pos_y], mode='lines', showlegend=False,orientation = 'v',
-                                   line=dict(dash='solid', color='rgb (255, 0, 0)', width=40))
+                                   line=dict(dash='solid', color='rgb (255, 0, 0)', width=100))
                 traceList.append(trace)
 
 
@@ -1149,8 +1116,10 @@ def getPlotly2D_3(plot_path):
 
     shutil.move(plot_div, html_path+"second_plot.html")
     fig.write_image(html_path+"second_plot.pdf")
-    fig.write_image(html_path+"second_plot.svg")
-    fig.write_image(html_path+"second_plot.webp")
+    fig.write_image(html_path+"second_plot.svg") 
+   # fig.write_image(html_path+"second_plot.webp")
+    fig.write_image(html_path+"second_plot.jpeg")
+    fig.write_image(html_path+"second_plot.png")
    
     
 
@@ -1241,5 +1210,3 @@ def main(getTimestamp,identity=5,e_value=0.9):
     shutil.copy(file_4_5_path, 'solo_file/media/{}/'.format(timestamp))
     shutil.copy(hmm_output_path, 'solo_file/media/{}/'.format(timestamp))
     shutil.copy(search_faa_path, 'solo_file/media/{}/'.format(timestamp))
-
-

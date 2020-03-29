@@ -1,0 +1,29 @@
+0 514 inside
+514 535 transmembrane helix
+535 547 outside
+547 568 transmembrane helix
+568 591 inside
+591 612 transmembrane helix
+612 624 outside
+624 645 transmembrane helix
+645 656 inside
+656 677 transmembrane helix
+677 765 outside
+765 786 transmembrane helix
+786 1195 inside
+1195 1216 transmembrane helix
+1216 1229 outside
+1229 1250 transmembrane helix
+1250 1266 inside
+1266 1287 transmembrane helix
+1287 1288 outside
+1288 1309 transmembrane helix
+1309 1314 inside
+1314 1335 transmembrane helix
+1335 1346 outside
+1346 1367 transmembrane helix
+1367 1372 inside
+1372 1393 transmembrane helix
+1393 1466 outside
+1466 1487 transmembrane helix
+1487 1500 inside

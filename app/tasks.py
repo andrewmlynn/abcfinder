@@ -8,7 +8,7 @@ from django.core.mail import EmailMessage
 
 # Make asyncronous function
 @task
-def generate_process(process_id,file_name,path,identity_cutoff=5,e_value_cutoff=0.9):
+def generate_process(process_id,file_name,path,identity_cutoff=5,e_value_cutoff=0.97):
 	job_id = generate_process.request.id
 	if Process.objects.filter(id=process_id).exists():
 		process_object = Process.objects.get(id=process_id)
