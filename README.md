@@ -9,71 +9,85 @@ ABC-Finder i.e., A Docker-based package for the identification of ABC proteins i
 ![abc-finder: workflow](https://github.com/lynngroup/abcfinder/blob/master/abc-finder_feb.svg)
 Fig : Generalized workflow and implementation of ABC-Finder. 
 # Licence
-
 This program is released as open source software under the terms of [GNU GPLv3](https://github.com/lynngroup/abcfinder/blob/master/LICENSE).
 
 # Installing
 
 You can install ABC-finder-webserver directly from the source code or build and run it from within Docker container.
 
-## Installing directly from source code
+## Building the Docker container 
 
 Clone this repository: 
 ```
-$ git clone https://github.com/lynngroup/ABC-finder-webserver.git
+$ git clone https://github.com/lynngroup/abcfinder.git
+
 ```
 
 Move into the repository directory:
 ```
-$ cd ABC-finder-webserver
+$ cd abcfinder
 ```
 
+The file `Dockerfile`  &  docker-compose.yaml contains instructions for building a Docker container for ABC-finder-webserver.
+
+If you have Docker & docker-compose  installed on your computer you can build the container like so:
+Once Docker is set up on the host computer, ABC-finder can be downloaded and installed using the following command:
+
+```shell
+docker pull lynngroup/abcfinder
+```
+**This will fetch the latest version with 'latest' tag.**
+
+To run ABC-finder use the following command:
+```shell
+docker-compose build
+docker-compose up -d 
+```
+
+This will initiate ABC-finder at port 8000 of local server or localhost. The user may use another port to initiate another instance. [To manipulate Docker utilities refer to Docker Documentation]
+While theABC-finder instance is running inside Docker container,ABC-finder User Interface (UI) can be accessed through a web browser at following URL:
+- http://localhost:8000/ or
+- http://IP_ADDRESS_OF_HOST_COMPUTER:8000
+
+ABC-finder can now be used to upload your data using the browser.
+##  Installing directly from source code
+
+Clone this repository: 
+```
+$ git clone https://github.com/lynngroup/abcfinder.git
+
+```
+
+Move into the repository directory:
+```
+$ cd abcfinder
+```
 Python 3 is required for this software.
 
-ABC-finder-webserver can be installed using `pip` in a variety of ways (`$` indicates the command line prompt):
+ABC-finder-webserver can be installed using `conda`  (`$` indicates the command line prompt):
 
-1. Inside a virtual environment:
+Inside  your  conda  environment:
 ```
-$ python3 -m venv ABC-finder-webserver_dev
-$ source ABC-finder-webserver_dev/bin/activate
-$ pip install -U /path/to/ABC-finder-webserver
-```
-2. Into the global package database for all users:
-```
-$ pip install -U /path/to/ABC-finder-webserver
-```
-3. Into the user package database (for the current user only):
-```
-$ pip install -U --user /path/to/ABC-finder-webserver
+$ conda create -n  abcfinder python=3 -y  && conda activate abcfinder
+$ pip install -r requirements.txt 
 ```
 
-
-## Building the Docker container 
-
-The file `Dockerfile` contains instructions for building a Docker container for ABC-finder-webserver.
-
-If you have Docker installed on your computer you can build the container like so:
+If you create a new database then run this command other you can ignore it:
 ```
-$ docker build -t ABC-finder-webserver .
+$ python manage.py makemigrations
+$ python manage.py migrate
 ```
-See below for information about running ABC-finder-webserver within the Docker container.
-
-
-
-
-# Running within the Docker container
-
-The following section describes how to run ABC-finder-webserver within the Docker container. It assumes you have Docker installed on your computer and have built the container as described above. 
-The container behaves in the same way as the normal version of ABC-finder-webserver, however there are some Docker-specific details that you must be aware of.
-
-The general syntax for running ABC-finder-webserver within Docker is as follows:
+Run python server
 ```
-$ docker run -i ABC-finder-webserver CMD
+$ python manage.py runserver
 ```
-where CMD should be replaced by the specific command line invocation of ABC-finder-webserver. Specific examples are below.
+ABC-finder User Interface (UI) can be accessed through a web browser at following URL:
+```
+$ http://localhost:8000/ or
+$ http://IP_ADDRESS_OF_HOST_COMPUTER:8000
 
-
-
+ABC-finder can now be used to upload your data using the browser.
+```
 
 # Bug reporting and feature requests
 
