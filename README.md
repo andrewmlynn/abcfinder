@@ -50,44 +50,6 @@ While theABC-finder instance is running inside Docker container,ABC-finder User 
 - http://IP_ADDRESS_OF_HOST_COMPUTER:8000
 
 ABC-finder can now be used to upload your data using the browser.
-##  Installing directly from source code
-
-Clone this repository: 
-```
-$ git clone https://github.com/lynngroup/abcfinder.git
-
-```
-
-Move into the repository directory:
-```
-$ cd abcfinder
-```
-Python 3 is required for this software.
-
-ABC-finder-webserver can be installed using `conda`  (`$` indicates the command line prompt):
-
-Inside  your  conda  environment:
-```
-$ conda create -n  abcfinder python=3 -y  && conda activate abcfinder
-$ pip install -r requirements.txt 
-```
-
-If you create a new database then run this command other you can ignore it:
-```
-$ python manage.py makemigrations
-$ python manage.py migrate
-```
-Run python server
-```
-$ python manage.py runserver
-```
-ABC-finder User Interface (UI) can be accessed through a web browser at following URL:
-```
-$ http://localhost:8000/ or
-$ http://IP_ADDRESS_OF_HOST_COMPUTER:8000
-
-ABC-finder can now be used to upload your data using the browser.
-```
 
 # Bug reporting and feature requests
 
