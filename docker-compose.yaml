@@ -2,13 +2,13 @@ version: '3.4'
 
 services:
   db:
-    image: "lynngroup/abcfinder_db:latest"
+    image: "lynngroup/abcfinder:db"
     stdin_open: true
     tty: true
     volumes:
       - ./db/:/root/db/
   redis:
-    image: "lynngroup/abcfinder_redis:latest"
+    image: "lynngroup/abcfinder:redis"
     volumes:
       - .:/django_app
  
@@ -18,7 +18,7 @@ services:
     restart: always
  
   web:
-    image: "lynngroup/abcfinder_web:latest"
+    image: "lynngroup/abcfinder:web"
     build: .
     command: bash -c "python /django_app/manage.py migrate --noinput && python /django_app/manage.py runserver 0.0.0.0:8000"
     volumes:
@@ -30,7 +30,7 @@ services:
       - redis
       - celery
   celery:
-    image: "lynngroup/abcfinder_celery:latest"
+    image: "lynngroup/abcfinder:celery"
     build: .
     command: celery --app=webserver worker --loglevel=INFO
     volumes:
