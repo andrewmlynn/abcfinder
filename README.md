@@ -1,5 +1,5 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3733587.svg)](https://doi.org/10.5281/zenodo.3733587)
-[![Docker Repository on Quay](https://quay.io/repository/lynngroup/abcfinder/status "Docker Repository on Quay")](https://quay.io/repository/lynngroup/abcfinder)
+
 ##
 ![abc-finder-webserver](https://github.com/lynngroup/abcfinder/blob/master/static/images/abc.png)
 ##
