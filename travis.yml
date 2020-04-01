@@ -1,0 +1,20 @@
+language: python
+
+
+services:
+  - docker
+
+env:
+  global:
+    - COMPOSE_FILES="-f site/docker-compose.yml"
+
+
+before_install:
+- docker pull lynngroup/abcfinder:db
+- docker pull lynngroup/abcfinder:redis
+- docker pull lynngroup/abcfinder:web
+- docker pull lynngroup/abcfinder:celery
+- docker-compose up
+
+- docker ps -a
+
