@@ -1,16 +1,17 @@
-sudo: required
+language: bash
 
-language: python
+sudo: required
 
 services:
   - docker
 
 env:
-  # You may want to update this to whatever the latest version is, or keep it
-  # the same as your local machines. However, I have only tested it with 1.8.0+.
-  # There should be a time in the future when this is not necessary - it is
-  # explained in more detail below.
-  DOCKER_COMPOSE_VERSION: 3.4
+  global:
+    - DOCKER_ENGINE_VERSION=1.10.3
+    - DOCKER_COMPOSE_VERSION=1.9.0
+    - INITIAL_ADMIN_USER=admin.user
+    - INITIAL_ADMIN_PASSWORD_PLAIN=admin123
+    - COMPOSE_FILES="-f site/docker-compose.yml"
 
 
 before_install:
@@ -22,11 +23,11 @@ before_install:
 # Setup your application stack. You may need to tweak these commands if you
   # doing out-of-the-ordinary docker-compose builds.
   #- docker-compose pull
-  - docker-compose build
-  - docker-compose start
+  #- docker-compose up 
+  #- docker-compose start
 
 #before_script:
-  #- docker-compose up -d --build
+  - docker-compose up -d --build
 
 # You will want this for logging. If one of your containers does not build for
   # whatever reason it's best to report that now before your tests start
