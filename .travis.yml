@@ -26,7 +26,7 @@ before_install:
   #- docker-compose up 
   #- docker-compose start
 
-#before_script:
+before_script:
   - docker-compose up -d --build
 
 # You will want this for logging. If one of your containers does not build for
