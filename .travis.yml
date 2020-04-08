@@ -8,8 +8,6 @@ services:
 env:
   global:
     - DOCKER_COMPOSE_VERSION=3.7
-    - INITIAL_ADMIN_USER=admin.user
-    - INITIAL_ADMIN_PASSWORD_PLAIN=admin123
     - COMPOSE_FILES="-f site/docker-compose.yml"
 
 
@@ -21,7 +19,7 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
   # Upgrade Docker.
   - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+  
 
 # Setup your application stack. You may need to tweak these commands if you
   # doing out-of-the-ordinary docker-compose builds.
