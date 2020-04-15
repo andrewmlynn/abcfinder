@@ -1,0 +1,76 @@
+version: '3.7'
+
+services:
+  db:
+    container_name: db
+    hostname: db
+    image: "lynngroup/abcfinder:db"
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./db/:/root/db/
+    restart: on-failure  
+  redis:
+    container_name: redis
+    hostname: redis
+    image: "lynngroup/abcfinder:redis"
+    volumes:
+      - .:/django_app
+    ports:
+      - "6379"
+    entrypoint: redis-server --appendonly yes
+    networks:
+      - main
+    restart: on-failure
+ 
+  web:
+    container_name: web
+    hostname: web
+    image: "lynngroup/abcfinder:web"
+    build: .
+    command: bash -c "python /django_app/manage.py migrate --noinput && python /django_app/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/django_app
+    ports:
+      - "80:8000"
+    # depends_on:
+    #   - db
+    #   # - redis
+    #   # - celery
+    networks:
+      - main
+    restart: on-failure  
+
+  celery:
+    container_name: celery
+    hostname: celery
+    image: "lynngroup/abcfinder:celery"
+    build: .
+    command: celery --app=webserver worker --loglevel=INFO
+    volumes:
+      - .:/django_app
+    depends_on:
+      - db
+      - redis
+      - web
+    networks:
+      - main
+    restart: on-failure  
+    
+    deploy:
+      restart_policy:
+        condition: on-failure
+        
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 2G
+        reservations:
+          cpus: '0.25'
+          memory: 1G
+
+          
+networks:
+  main:          
+volumes:
+  redis-data:
