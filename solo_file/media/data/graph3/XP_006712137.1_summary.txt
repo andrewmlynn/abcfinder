@@ -1,2 +1,0 @@
-0 300 notop transmembrane helix
-300 300 outside

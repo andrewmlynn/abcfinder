@@ -88,7 +88,6 @@ import plotly.tools as tls
 import plotly.io as pio
 pio.orca.config.executable = '/opt/conda/bin/orca'
 pio.orca.config.save()
-
 # from ipywidgets import interactive, HBox, VBox, widgets, interact
 ######################
 
@@ -145,10 +144,24 @@ def check_and_mk_dir(directory):
         os.makedirs(directory)
 
 
-def solo_fnc2():
-
-    hmm_parse(2, "solo_file/media/search.faa", 3)
-    data_path = join("solo_file/media/data", "graph3")
+def solo_fnc2(pid,jid):
+    movable_path = "solo_file/media/data_" + str(jid) + "/graph3/"  
+    user_result=   'solo_file/media/'+str(jid)+"/" 
+    check_and_mk_dir("solo_file/media/data_" + str(jid) + "/")
+    check_and_mk_dir("solo_file/media/data_" + str(jid) + "/graph3")    
+    shutil.move(join(os.getcwd(), "solo_file/media/all_data1.csv"), join(join(os.getcwd(), movable_path), "all_data1.csv"))
+    shutil.move(join(os.getcwd(), "solo_file/media/all_data.csv"), join(join(os.getcwd(), movable_path), "all_data.csv"))
+    shutil.move(join(os.getcwd(), "solo_file/media/hmm_output"), join(join(os.getcwd(), movable_path), "hmm_output"))
+    shutil.copy(join(os.getcwd(), "solo_file/media/search.faa"), join(join(os.getcwd(), movable_path), "search.faa"))
+    shutil.copy(join(os.getcwd(), "solo_file/media/data_"+str(jid)+"/graph3/hmm_output"), join(join(os.getcwd(), user_result), "hmm_output"))
+    shutil.copy(join(os.getcwd(), "solo_file/media/data_"+str(jid)+"/graph3/search.faa"), join(join(os.getcwd(), user_result), "search.faa"))
+    #shutil.copy(join(os.getcwd(), "solo_file/media/data_"+str(jid)+"/graph3/search_faa1.faa"), join(join(os.getcwd(), user_result), "search_faa1.faa"))
+    #shutil.copy(join(os.getcwd(), "solo_file/media/data_"+str(jid)+"/graph3/search_faa0.clstr"), join(join(os.getcwd(), user_result), "search_faa0.clstr"))
+    #shutil.copy(join(os.getcwd(), "solo_file/media/data_"+str(jid)+"/graph3/threshold.txt"), join(join(os.getcwd(), user_result), "threshold.txt"))
+    shutil.copy(join(os.getcwd(), "solo_file/media/profile.hmm"), join(join(os.getcwd(), user_result), "profile.hmm"))
+    
+    hmm_parse(2, join(movable_path,"search.faa"), 3,pid,jid)
+    data_path = join("solo_file/media/data_"+str(jid)+"/", "graph3")
     for files_data in os.listdir(data_path):
         # print ("files",files_data)
         if "NP_" in files_data:
@@ -157,28 +170,37 @@ def solo_fnc2():
         # print ("files",files_data)
         if "_summary" in files_data:
             os.remove(join(data_path, files_data))
-    data_path1=join(join(os.getcwd(),"solo_file/media"),"data")
+    data_path1=join(join(os.getcwd(),"solo_file/media/"),"data_"+str(jid))
     print ("running command")
     cmd = "cd-hit -i search_faa0.faa -o search_faa0  -c "+str(e_value_cutoff)+" -n "+str(identity_cutoff)
-    print("ccccccccOOOOOOOmmmmmmmmmm",cmd)
-    hm = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True, cwd=os.path.join(os.getcwd(), 'solo_file/media/data/graph3')).communicate()[0]
-    generate_clstr("solo_file/media/data/graph3/search_faa0.faa")
+    print("cd-hit is completed",cmd)
+    hm = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True, cwd=os.path.join(os.getcwd(), 'solo_file/media/data_'+str(jid)+'/graph3')).communicate()[0]
+    generate_clstr("solo_file/media/data_"+str(jid)+"/graph3/search_faa0.faa",pid,jid)
 
     path_file = join(join(join(os.getcwd(),data_path1),"graph3"),'search_faa1.faa')
-    get_plotv2_file(path_file)
+    get_plotv2_file(path_file,pid,jid)
     while (hmm_parse_stat == False):
         a = 0
-    getPlotly2D_3(data_path)
+    getPlotly2D_3(data_path,pid,jid)
+
     print("plotting done")
-def solo_fnc1():
+
+def solo_fnc1(pid,jid):
     stat = True
     global draw_graph_1_st
     draw_graph_1_st = True
 
-    while (os.path.exists(os.path.join(os.path.join(os.getcwd(), "solo_file/media"), "hmm_output"))):
+    movable_path = "solo_file/media"
+
+    while (os.path.exists(os.path.join(os.path.join(os.getcwd(), movable_path), "hmm_output"))):
         print("hmm_output exists removing it...")
-        os.remove(os.path.join(os.path.join(os.getcwd(), "solo_file/media"), "hmm_output"))
+        os.remove(os.path.join(os.path.join(os.getcwd(), movable_path), "hmm_output"))
     hm = subprocess.Popen("which hmmbuild", stdout=subprocess.PIPE, shell=True).communicate()[0]
+    ##copying profile.hmm file
+    #shutil.copyfile("solo_file/profile.hmm","solo_file/media_"+str(pid)+"/profile.hmm")
+    #print("********** copied ***********")
+    ##copied file
+    #cmd="hmmsearch solo_file/media/profile.hmm "+movable_path+"/search.faa > "+movable_path+"/hmm_output"
     hm1 = subprocess.Popen("hmmsearch solo_file/media/profile.hmm solo_file/media/search.faa > solo_file/media/hmm_output", shell=True).communicate()[0]
     time.sleep(5)
     f = open('solo_file/media/hmm_output').read()  # After building hmm_output, change the filename "test2.txt" to "hmm_output".
@@ -196,7 +218,7 @@ def solo_fnc1():
         os.remove(os.path.join(os.path.join(os.getcwd(), "solo_file/media"), "all_data.csv"))
     if os.path.exists(os.path.join(os.path.join(os.getcwd(), "solo_file/media"), "all_data1.csv")):
         print("all_data1.csv exists removing it...")
-        os.remove(os.path.join(os.path.join(os.getcwd(), "solo_file/media"), "all_data1.csv"))
+        os.remove(os.path.join(os.path.join(os.getcwd(), "solo_file/media/" ), "all_data1.csv"))
     with open('solo_file/media/all_data.csv', 'wb') as f:
         np.savetxt(f, all_data, fmt='%.2e %.2f', delimiter=',')
     read_data = np.genfromtxt('solo_file/media/all_data.csv')
@@ -215,7 +237,7 @@ def solo_fnc1():
     fig, ax1 = plt.subplots()
 
     color = 'r'
-    ax1.set_ylabel('score', color=color)
+    ax1.set_ylabel('Domain Score', color=color)
     ax1.plot(xnew, y2_new, color=color, linewidth=20)
     ax1.tick_params(axis='y', labelcolor=color)
     ax1.xaxis.set_ticks(np.arange(0, 460, 40))
@@ -277,7 +299,7 @@ def solo_fnc1():
     trace2 = go.Scatter(
         x=xnew,
         y=y2_new,
-        name='score',
+        name='Domain Score',
         line={'color': 'rgba (255, 0, 0, 1)', 'dash': 'solid', 'width': 5.0},
         yaxis='y2'
     )
@@ -305,7 +327,7 @@ def solo_fnc1():
             tickformat="e",
         ),
         yaxis2=dict(
-            title='score',
+            title='Domain Score',
             titlefont=dict(
                 color='rgb(255, 0, 0)'
             ),
@@ -336,13 +358,13 @@ def solo_fnc1():
     plotly_fig['layout']['yaxis']['showgrid'] = False
     # plotly_fig['data'].append( dict(x=xnew, y=y2_new, type='scatter', mode='lines') )
     plot_div = plot(plotly_fig, output_type='file', include_plotlyjs=True, auto_open=False)
-    shutil.move(plot_div, html_path+"temp-plot.html")
-    plotly_fig.write_image(html_path+"first_plot.pdf")
-    plotly_fig.write_image(html_path+"first_plot.svg")
-    plotly_fig.write_image(html_path+"first_plot.png")
-    plotly_fig.write_image(html_path+"first_plot.jpeg")
+    shutil.move(plot_div, html_path+"E-value_Domain_Score.html")
+    plotly_fig.write_image(html_path+"E-value_Domain_Score.pdf")
+    plotly_fig.write_image(html_path+"E-value_Domain_Score.svg")
+    plotly_fig.write_image(html_path+"E-value_Domain_Score.png")
+    plotly_fig.write_image(html_path+"E-value_Domain_Score.jpeg")
     #return JsonResponse({'plot': plot_div})
-def hmm_parse(opt, faa_path, gpreq):
+def hmm_parse(opt, faa_path, gpreq,pid,jid):
     global return_data1,e_value_1,score_1,hmm_parse_stat
     alldata_str_0 = []
     alldata_str_1 = []
@@ -355,8 +377,9 @@ def hmm_parse(opt, faa_path, gpreq):
     score_0 = []
     e_value_1 = []
     score_1 = []
-    f = open(join(os.getcwd(),
-                  "solo_file/media/hmm_output")).read()  # After building hmm_output, change the filename "test2.txt" to "hmm_output".
+    movable_path = "solo_file/media/data_" + str(jid) + "/graph3/"
+    f = open(join(join(os.getcwd(),movable_path),
+                  "hmm_output")).read()  # After building hmm_output, change the filename "test2.txt" to "hmm_output".
     data = f[f.find('    -'):f.find('\n\n\n')].split('\n')[3:]
     all_data = []
     all_data1 = []
@@ -396,15 +419,16 @@ def hmm_parse(opt, faa_path, gpreq):
         return_data1.append(all_data_xp[index_g4])
         e_value_1.append(alldata1_str_0[index_g4])
         score_1.append(alldata1_str_1[index_g4])
+
     if gpreq == 2:
-        file_name = "solo_file/media/data/search_faa0.faa"
+        file_name = "solo_file/media/data_"+str(jid)+"/search_faa0.faa"
         f1 = (open(file_name, 'w'))
     else:
-        file_name = "solo_file/media/data/graph3/search_faa0.faa"
+        file_name = "solo_file/media/data_"+str(jid)+"/graph3/search_faa0.faa"
         f1 = (open(file_name, 'w'))
 
     if opt == 1:
-        with open("solo_file/media/data/graph3/1_2.txt", 'w') as one_f:
+        with open("solo_file/media/data_"+str(jid)+"/graph3/1_2.txt", 'w') as one_f:
             one_f.writelines("E-Value  Score  Seq-Id")
             one_f.writelines("\n")
             for data_i, data_w in enumerate(e_value_0):
@@ -436,7 +460,7 @@ def hmm_parse(opt, faa_path, gpreq):
                             stat = False
                             break
     else:
-        with open("solo_file/media/data/graph3/4_5.txt", 'w') as one_f:
+        with open("solo_file/media/data_"+str(jid)+"/graph3/threshold.txt", 'w') as one_f:
             one_f.writelines("E-Value  Score  Seq-Id")
             one_f.writelines("\n")
             for data_i, data_w in enumerate(e_value_1):
@@ -492,11 +516,12 @@ def drawable(filename, plot_path):
                 flag = True
     return flag
 
-def generate_clstr(faa_path):
+def generate_clstr(faa_path,pid,jid):
     line_clstr=[]
-    file_name1 = "solo_file/media/data/graph3/search_faa1.faa"
+    file_name1 = "solo_file/media/data_"+str(jid)+"/graph3/search_faa1.faa"
     f21 = (open(file_name1, 'w'))
-    with open ("solo_file/media/data/graph3/search_faa0.clstr") as f:
+    #shutil.copyfile("solo_file/media/search_faa0.clstr","solo_file/media/data_"+str(jid)+"/graph3/search_faa0.clstr")
+    with open ("solo_file/media/data_"+str(jid)+"/graph3/search_faa0.clstr") as f:
         listfile=f.readlines()
         for items in listfile:
             if 'Cluster' in items:
@@ -531,59 +556,30 @@ def generate_clstr(faa_path):
                         # print ("exception")
                         break
 
-def get_plotv2_file(path_file):
+def get_plotv2_file(path_file,pid,jid):
     global data_zip_third_clmn, data_zip_third_seq
-    #driver = webdriver.Firefox(executable_path=os.path.join(os.getcwd(), "geckodriver"), firefox_options=options)
-    driver = webdriver.Firefox(executable_path=os.path.join(os.getcwd(), "geckodriver"), firefox_options=options)
-    baseurl = "http://topcons.cbr.su.se/"
-    stat_u = True
+    
     print("generating plotv2 file")
-    while stat_u:
-        try:
-            driver.get(baseurl)
-            driver.find_element_by_id("id_seqfile").send_keys(path_file)
-            driver.find_element_by_name("do").click()
-            status = driver.find_element_by_id('content_right_panel').text
-            stat = True
-            while (stat):
-                if 'Finished' in status:
-                    stat = False
-                else:
-                    try:
-                        status = driver.find_element_by_id('content_right_panel').text
-                    except:
-                        continue
-            element = driver.find_element_by_xpath('//a[contains(@href, "%s")]' % 'query.result.txt')
-            print(element.get_attribute('href'))
-            response = requests.get(element.get_attribute('href'))
-            data = response.text
-            element_zip = driver.find_element_by_xpath('//a[contains(@href, "%s")]' % '.zip')
-            print("getting data from zipped file")
-            print(element_zip.get_attribute('href'))
-            response_zip = requests.get(element_zip.get_attribute('href'))
-            f = ZipFile(BytesIO(response_zip.content))
-            print(f.namelist())
+    user_result= 'solo_file/media/'+str(jid)+"/"
+    cmd1='/usr/local/bin/docker run -e USER_ID=$(id -u $USER) -v /topcons/data/topcons2_database:/data/topcons2_database -v /rough/abcfinder_complete_working//solo_file/media/data_'+str(jid)+'/graph3:/tmp/ -it --name '+str(jid)+' -d --cpus 0.6 nanjiang/topcons2'
+    out1=subprocess.Popen(cmd1, stdout=subprocess.PIPE, shell=True, cwd=os.path.join(os.getcwd(),"")).communicate()[0]
+    time.sleep(10)
+    cmd2='/usr/local/bin/docker exec --user user '+str(jid)+' script /dev/null -c "/app/topcons2/run_topcons2.sh /tmp/search_faa1.faa -outpath  /tmp/'+str(jid)+'/"'
+    out2=subprocess.Popen(cmd2, stdout=subprocess.PIPE, shell=True, cwd=os.path.join(os.getcwd(),"")).communicate()[0]
+    print(out2)
+    
+    f2= open('/django_app/solo_file/media/data_'+str(jid)+'/graph3/'+str(jid)+'/search_faa1/query.result.txt', 'r')
+    f1 = open('/django_app/solo_file/media/data_'+str(jid)+'/graph3/plotv2.txt', 'w')
+    # f2= open('solo_file/media/data_f0a1bcbb/graph3/query.result.txt', 'r')
+    # f1 = open('solo_file/media/data_f0a1bcbb/graph3/plotv2.txt', 'w')
+    for line in f2.readlines():
+        f1.writelines(line)
+     
+    #shutil.copy(join(os.getcwd(), 'solo_file/media/data_'+str(jid)+'/graph3/'+str(jid)+'/search_faa1/query.result.txt'), join(join(os.getcwd(), user_result), 'query.result.txt'))    
 
-            for file_zip in f.namelist():
-                if 'finished_seqs.txt' in file_zip:
-                    file_to_zipped = file_zip
-
-            for line in f.open(file_to_zipped).readlines():
-                #print(line.decode("utf-8"))
-                # print(line[0])
-                data_str = line.decode("utf-8")
-                strippwr_data = data_str.split("\t")
-                data_zip_third_clmn.append(strippwr_data[2])
-                data_zip_third_seq.append(data_str.split(" ")[0].split("\t")[-1])
-            print(data_zip_third_clmn)
-            print(data_zip_third_seq)
-            f1 = open('solo_file/media/data/graph3/plotv2.txt', 'w')
-            for line in data:
-                f1.writelines(line)
-                stat_u = False
-        except Exception as e1:
-            print(e1)
-            continue
+    cmd3='/usr/local/bin/docker container stop '+str(jid)+' && docker rm '+str(jid)+''
+    out=subprocess.Popen(cmd3, stdout=subprocess.PIPE, shell=True, cwd=os.path.join(os.getcwd(),"")).communicate()[0]
+    
 
 def only_o_check(f1, plot_path):
     txt = plot_path + "/{}"
@@ -613,10 +609,13 @@ def only_o_check(f1, plot_path):
             return False
 
 def o_range(diff):
-    if diff > 180 and diff < 362:
+    if diff > 165 and diff < 700:
         return 'i'
     else:
         return 'dummy'
+def i_range(diff):
+    if diff > 210 and diff < 595:
+        return 'i' 
 
 def draw_with_summary(filename, plot_path, pos_y):
     global fileN, xList, markList, posyList, eNumberList, posxEndList, diff, seq_id, rge
@@ -636,7 +635,7 @@ def draw_with_summary(filename, plot_path, pos_y):
     with open(txt.format(filename), 'rb') as f:
         # f2=f
         stat_o = only_o_check(filename, plot_path)
-        o_start = False
+        o_start = True
         n_stat=False
         print(stat_o, ":", filename)
         if stat_o != True:
@@ -655,7 +654,7 @@ def draw_with_summary(filename, plot_path, pos_y):
 
                 if mark.find("in") != -1:
                     first_entry = True
-                    if (pos_end - pos_start > 275):
+                    if i_range(pos_end - pos_start ):
                         mk = 'i'
                         eNumber += 1
                     else:
@@ -683,6 +682,12 @@ def draw_with_summary(filename, plot_path, pos_y):
                         mk = o_range(pos_end - pos_start)
                         if mk=='i':
                             eNumber += 1
+                        else:
+                            mk='o'
+
+                # print(mark)
+                if (mk=='i' or mk=='n') and eNumber>2:
+                    mk='o'
 
                 # print(mark)
                 markList.append(mk)
@@ -735,7 +740,7 @@ def Sort_Tuple(tup):
                 tup[j + 1] = temp
     return tup
 
-def getPlotly2D_3(plot_path):
+def getPlotly2D_3(plot_path,pid,jid):
     print ("getting plot3")
     global fileN, xList, markList,posyList,threshold_value
     global maxv
@@ -751,6 +756,7 @@ def getPlotly2D_3(plot_path):
     incount = 0
     # print (os.getcwd())
     datapath = plot_path
+    html_path = 'solo_file/media/'+str(jid)+"/"
     # datapath = './media/data'
     file_name = []
     with open(join(plot_path,"plotv2.txt")) as ofile:
@@ -768,18 +774,103 @@ def getPlotly2D_3(plot_path):
                 print(sequence_name[-1])
             if 'TOPCONS predicted topology' in lines_1:
                 line_data = line_o[line_in + 1]
-                for zip_data_in,zip_data in enumerate(data_zip_third_seq):
-                    if sequence_name[-1] == zip_data:
-                        #print ("entered")
-                        if data_zip_third_clmn[zip_data_in] == '0':
-                            #print ("0 detected")
-                #if '***No topology could be produced with this method***' in line_data:
+                if '***No topology could be produced with this method***' in line_data:
+                    file_name.append(str(sequence_name[-1]) + "_summary.txt")
+                    f_opn = open(join("solo_file/media/data_"+str(jid)+"/graph3", file_name[-1]), 'w')
+
+                    seq_name_no = sequence_name[-1]
+                    with open(join("solo_file/media/data_"+str(jid)+"/graph3", "hmm_output")) as f1:
+                        hmm_file = f1.readlines()
+                        text_sear = ">> " + seq_name_no
+                        loop_st = True
+                        cnt = 0
+                        start = 0
+                        end = 300
+                        # print ("text_search: ",text_sear)
+                        for ind_lin, data_lin in enumerate(hmm_file):
+                            if text_sear in data_lin:
+                                # print ("tet found")
+                                ind_lin1 = ind_lin + 2
+                                while (loop_st):
+                                    data_to_write = []
+                                    # print (hmm_file[ind_lin1])
+                                    while (loop_st):
+                                        # print(len(hmm_file[ind_lin1]))
+                                        if len(hmm_file[ind_lin1]) == 1:
+                                            loop_st = False
+                                        else:
+                                            # print ("writing ",hmm_file[ind_lin1])
+                                            data_to_write.append(hmm_file[ind_lin1])
+                                            data_to_write.append("\n")
+                                            ind_lin1 = ind_lin1 + 1
+
+                                    with open(join("solo_file/media/data_"+str(jid)+"/graph3", "dummy.txt"), 'a') as dummy_f:
+                                        for data_w in data_to_write:
+                                            dummy_f.writelines(data_w)
+
+                                    f1 = open(join("solo_file/media/data_"+str(jid)+"/graph3", "dummy.txt")).read()
+                                    item_algo = f1[f1.find('--'):f1.find('\n\n\n')].split('\n')
+                                    # print(item_algo)
+                                    file_name.append(str(sequence_name[-1]) + "_summary.txt")
+                                    f_opn = open(join("solo_file/media/data_"+str(jid)+"/graph3", file_name[-1]), 'w')
+                                    for index_algo, ind_lin1 in enumerate(item_algo):
+                                        # print("ind_lin1",ind_lin1)
+                                        if index_algo != 0 and ind_lin1 != "":
+                                            line = ind_lin1.strip()
+                                            score_algo = (list(map(str, re.split(r'\s+', line)[2:3])))
+                                            hmm_from_algo = (list(map(str, re.split(r'\s+', line)[6:7])))
+                                            hmm_to_algo = (list(map(str, re.split(r'\s+', line)[7:8])))
+                                            score_algo = score_algo[0]
+                                            hmm_from_algo = hmm_from_algo[0]
+                                            hmm_to_algo = hmm_to_algo[0]
+                                            # print (int(float(score_algo)))
+                                            # print(int(float(hmm_from_algo)))
+                                            # print(int(float(hmm_to_algo)))
+                                            if ((int(float(score_algo)) >= 30) or (
+                                                    int(float(hmm_from_algo)) == 1)):
+                                                if ((int(float(hmm_to_algo)) <= 170) and (
+                                                        int(float(hmm_to_algo)) >= 50)):
+                                                    cnt = cnt + 1
+
+                                                    i_line = str(start) + " " + str(
+                                                        end) + " notop transmembrane helix"
+                                                    start = start + 300
+                                                    end = end + 300
+                                                    f_opn.writelines(i_line)
+                                                    f_opn.writelines("\n")
+                                                    i_line = str(start) + " " + str(end - 300) + " outside"
+                                                    f_opn.writelines(i_line)
+                                                    f_opn.writelines("\n")
+                                                elif ((int(float(hmm_to_algo)) <= 150) and (
+                                                        int(float(hmm_to_algo)) >= 30)):
+
+                                                    cnt = cnt + 1
+
+                                                    i_line = str(start) + " " + str(
+                                                        end) + " notop transmembrane helix"
+                                                    start = start + 300
+                                                    end = end + 300
+                                                    f_opn.writelines(i_line)
+                                                    f_opn.writelines("\n")
+                                                    i_line = str(start) + " " + str(end - 300) + " outside"
+                                                    f_opn.writelines(i_line)
+                                                    f_opn.writelines("\n")
+                                    dummy_f.close()
+                                    dummy_f = open(join("solo_file/media/data_"+str(jid)+"/graph3", "dummy.txt"), 'w')
+                                    dummy_f.close()
+                        file_no = file_no + 1
+                        f_opn.close()
+                elif 'o' in line_data:
+                    if 'i' not in line_data:
+                        if 'm' not in line_data:
+                #:
                             file_name.append(str(sequence_name[-1]) + "_summary.txt")
-                            f_opn = open(join("solo_file/media/data/graph3", file_name[-1]), 'w')
+                            f_opn = open(join("solo_file/media/data_"+str(jid)+"/graph3", file_name[-1]), 'w')        
+
 
 
                             seq_name_no=sequence_name[-1]
-                            with open (join("solo_file/media/","hmm_output")) as f1:
+                            with open (join("solo_file/media/data_"+str(jid)+"/graph3","hmm_output")) as f1:
                                 hmm_file = f1.readlines()
                                 text_sear = ">> " + seq_name_no
                                 loop_st = True
@@ -804,15 +895,15 @@ def getPlotly2D_3(plot_path):
                                                     data_to_write.append("\n")
                                                     ind_lin1 = ind_lin1 + 1
 
-                                            with open(join("solo_file/media/", "dummy.txt"), 'a') as dummy_f:
+                                            with open(join("solo_file/media/data_"+str(jid)+"/graph3", "dummy.txt"), 'a') as dummy_f:
                                                 for data_w in data_to_write:
                                                     dummy_f.writelines(data_w)
 
-                                            f1 = open(join("solo_file/media/", "dummy.txt")).read()
+                                            f1 = open(join("solo_file/media/data_"+str(jid)+"/graph3", "dummy.txt")).read()
                                             item_algo = f1[f1.find('--'):f1.find('\n\n\n')].split('\n')
                                             # print(item_algo)
                                             file_name.append(str(sequence_name[-1]) + "_summary.txt")
-                                            f_opn = open(join("solo_file/media/data/graph3", file_name[-1]), 'w')
+                                            f_opn = open(join("solo_file/media/data_"+str(jid)+"/graph3", file_name[-1]), 'w')
                                             for index_algo, ind_lin1 in enumerate(item_algo):
                                                 # print("ind_lin1",ind_lin1)
                                                 if index_algo != 0 and ind_lin1 != "":
@@ -826,10 +917,10 @@ def getPlotly2D_3(plot_path):
                                                     # print (int(float(score_algo)))
                                                     # print(int(float(hmm_from_algo)))
                                                     # print(int(float(hmm_to_algo)))
-                                                    if ((int(float(score_algo)) >= 30) or  (
+                                                    if ((int(float(score_algo)) >=30) or (
                                                             int(float(hmm_from_algo)) == 1)):
                                                         if ((int(float(hmm_to_algo)) <= 170) and (
-                                                                int(float(hmm_to_algo)) >= 150)):
+                                                                int(float(hmm_to_algo)) >= 50)):
                                                             cnt = cnt + 1
 
                                                             i_line = str(start) + " " + str(
@@ -842,7 +933,7 @@ def getPlotly2D_3(plot_path):
                                                             f_opn.writelines(i_line)
                                                             f_opn.writelines("\n")
                                                         elif ((int(float(hmm_to_algo)) <= 150) and (
-                                                                int(float(hmm_to_algo)) >= 130)):
+                                                                int(float(hmm_to_algo)) >= 30)):
 
                                                             cnt = cnt + 1
 
@@ -856,18 +947,17 @@ def getPlotly2D_3(plot_path):
                                                             f_opn.writelines(i_line)
                                                             f_opn.writelines("\n")
                                             dummy_f.close()
-                                            dummy_f = open(join("solo_file/media/", "dummy.txt"), 'w')
+                                            dummy_f = open(join("solo_file/media/data_"+str(jid)+"/graph3", "dummy.txt"), 'w')
                                             dummy_f.close()
                                 file_no = file_no + 1
                                 f_opn.close()
-
-                        else:
+                        else:        
                             count_i = [(ind.start(), ind.end(), 'i') for ind in re.finditer('i+', line_data)]
                             count_i = count_i + [(ind.start(), ind.end(), 'o') for ind in re.finditer('o+', line_data)]
                             count_i = count_i + [(ind.start(), ind.end(), 'M') for ind in re.finditer('M+', line_data)]
                             trace_data = Sort_Tuple(count_i)
                             file_name.append(str(sequence_name[-1]) + "_summary.txt")
-                            f_opn = open(join("solo_file/media/data/graph3",file_name[-1]), 'w')
+                            f_opn = open(join("solo_file/media/data_"+str(jid)+"/graph3",file_name[-1]), 'w')
                             if len(count_i) > 0 :
                                 for element in trace_data:
                                     if element[2] == 'i':
@@ -884,8 +974,54 @@ def getPlotly2D_3(plot_path):
                                         f_opn.writelines("\n")
                             file_no = file_no + 1
                             f_opn.close()
+                    else:
+                        count_i = [(ind.start(), ind.end(), 'i') for ind in re.finditer('i+', line_data)]
+                        count_i = count_i + [(ind.start(), ind.end(), 'o') for ind in re.finditer('o+', line_data)]
+                        count_i = count_i + [(ind.start(), ind.end(), 'M') for ind in re.finditer('M+', line_data)]
+                        trace_data = Sort_Tuple(count_i)
+                        file_name.append(str(sequence_name[-1]) + "_summary.txt")
+                        f_opn = open(join("solo_file/media/data_"+str(jid)+"/graph3",file_name[-1]), 'w')
+                        if len(count_i) > 0:
+                            for element in trace_data:
+                                if element[2] == 'i':
+                                    i_line = str(element[0]) + " " + str(element[1]) + " inside"
+                                    f_opn.writelines(i_line)
+                                    f_opn.writelines("\n")
+                                elif element[2] == 'o':
+                                    i_line = str(element[0]) + " " + str(element[1]) + " outside"
+                                    f_opn.writelines(i_line)
+                                    f_opn.writelines("\n")
+                                else:
+                                    i_line = str(element[0]) + " " + str(element[1]) + " transmembrane helix"
+                                    f_opn.writelines(i_line)
+                                    f_opn.writelines("\n")
+                        file_no = file_no + 1
+                        f_opn.close()
+                else:
+                    count_i = [(ind.start(), ind.end(), 'i') for ind in re.finditer('i+', line_data)]
+                    count_i = count_i + [(ind.start(), ind.end(), 'o') for ind in re.finditer('o+', line_data)]
+                    count_i = count_i + [(ind.start(), ind.end(), 'M') for ind in re.finditer('M+', line_data)]
+                    trace_data = Sort_Tuple(count_i)
+                    file_name.append(str(sequence_name[-1]) + "_summary.txt")
+                    f_opn = open(join("solo_file/media/data_"+str(jid)+"/graph3",file_name[-1]), 'w')
+                    if len(count_i) > 0:
+                        for element in trace_data:
+                            if element[2] == 'i':
+                                i_line = str(element[0]) + " " + str(element[1]) + " inside"
+                                f_opn.writelines(i_line)
+                                f_opn.writelines("\n")
+                            elif element[2] == 'o':
+                                i_line = str(element[0]) + " " + str(element[1]) + " outside"
+                                f_opn.writelines(i_line)
+                                f_opn.writelines("\n")
+                            else:
+                                i_line = str(element[0]) + " " + str(element[1]) + " transmembrane helix"
+                                f_opn.writelines(i_line)
+                                f_opn.writelines("\n")
+                    file_no = file_no + 1
+                    f_opn.close()
     onlyfiles = [f for f in listdir(datapath) if isfile(join(datapath, f))]
-    with open ("solo_file/media/data/graph3/search_faa0.clstr") as f:
+    with open ("solo_file/media/data_"+str(jid)+"/graph3/search_faa0.clstr") as f:
         listfile=f.readlines()
         clstr_no=[]
         clstr_item=[]
@@ -925,7 +1061,7 @@ def getPlotly2D_3(plot_path):
     yTickName = []
     posxEndList = []
     pos_y = 50
-    f2 = open("solo_file/media/search.faa", 'r')
+    f2 = open("solo_file/media/data_"+str(jid)+"/graph3/search.faa", 'r')
     data_na = f2.readlines()
     file_n1 = str(data_na[0].split('[')[1].split(']')[0])
     file_n2=file_n1.split(" ")
@@ -934,7 +1070,7 @@ def getPlotly2D_3(plot_path):
     for item in file_n2:
         file_n3=file_n3+str(item)
     file_n="results" + ".txt"
-    open_fil = join("solo_file/media/data/graph3", file_n)
+    open_fil = join("solo_file/media/data_"+str(jid)+"/graph3", file_n)
     for index_1,item_1 in enumerate(clstr_no):
         for fn in clstr_file[index_1]:
     #for fn in onlyfiles:
@@ -989,6 +1125,40 @@ def getPlotly2D_3(plot_path):
     ind_blue = 0
     ind_red = 0
     #print(posyList)
+    #satrt here if  <3 TMH present between two NBD consider it as single line   
+    dcv_cnt = []
+    for data_ndx9, data_vd in enumerate(markList):
+        if data_vd == 'i' or data_vd == 'n':
+            dcv_cnt.append(data_ndx9)
+    #print(dcv_cnt)
+    fnal_aay = []
+    if dcv_cnt != []:
+        if dcv_cnt[0] != 0:
+            dmmy_aaay = (markList[0:dcv_cnt[0]])
+            for cdc in dmmy_aaay:
+                fnal_aay.append(cdc)
+    for lndc, ltdc in enumerate(dcv_cnt):
+        dmmy_aaay = []
+        if lndc != len(dcv_cnt) - 1:
+            dmmy_aaay = (markList[ltdc:dcv_cnt[lndc + 1]])
+            print(dmmy_aaay)
+            bxcnt = sum('t' in item for item in dmmy_aaay)
+            print(bxcnt)
+            if bxcnt != 0 and bxcnt < 3:
+                vc = 0
+                for lndc9, ltdc9 in enumerate(dmmy_aaay):
+                    if ltdc9 == 't':
+                        dmmy_aaay[lndc9] = 'o'
+            for cdc in dmmy_aaay:
+                fnal_aay.append(cdc)
+    if fnal_aay != []:
+        dmmy_aaay = (markList[dcv_cnt[-1]:len(markList)])
+        for cdc in dmmy_aaay:
+            fnal_aay.append(cdc)
+
+    markList=fnal_aay
+# end here if  <3 TMH present between two NBD consider it as single line 
+
     for ele in xList:
         pos_y = posyList[ind_1]
         mark = markList[ind_1]
@@ -1103,10 +1273,7 @@ def getPlotly2D_3(plot_path):
     x1 = x2 - 50
     pos_y = posyList[-1]
     fig = go.Figure(data=traceList, layout=layout)
-    #fig['layout'].update(margin=dict(l=100))
-    fig['layout'].update(margin=dict(l=100),width=6000,height=6000)
-    #fig = dict(data=traceList, layout=layout)
-    
+    fig['layout'].update(margin=dict(l=100),width=7000,height=10000)
     #plotly_fig = go.Figure(data=traceList, layout=layout)
 
     # print(fig)
@@ -1114,13 +1281,14 @@ def getPlotly2D_3(plot_path):
     #plot_div1 = plot(fig,filename='data', image='svg')
     plot_div = plot(fig, output_type='file', include_plotlyjs=True, auto_open=False)
 
-    shutil.move(plot_div, html_path+"second_plot.html")
-    fig.write_image(html_path+"second_plot.pdf")
-    fig.write_image(html_path+"second_plot.svg") 
-   # fig.write_image(html_path+"second_plot.webp")
-    fig.write_image(html_path+"second_plot.jpeg")
-    fig.write_image(html_path+"second_plot.png")
-   
+    
+    shutil.move(plot_div, html_path+"Topology_Plot.html")
+    #fig.write_image(html_path+"Topology_Plot.html")
+    fig.write_image(html_path+"Topology_Plot.pdf")
+    fig.write_image(html_path+"Topology_Plot.svg")
+    fig.write_image(html_path+"Topology_Plot.webp")
+    fig.write_image(html_path+"Topology_Plot.jpeg")
+    fig.write_image(html_path+"Topology_Plot.png")
     
 
 
@@ -1147,9 +1315,9 @@ def getPlotly2D_3(plot_path):
     #return plot_div
 
 class LineChartJSONView(BaseLineChartView):
-    def __init__(self):
-        self.f = open('solo_file/media/test2.txt').read()
-        self.f = open('solo_file/media/test2.txt').read()
+    def __init__(self,pid):
+        self.f = open('solo_file/media/data_'+str(jid)+'/graph3/test2.txt').read()
+        self.f = open('solo_file/media/data_'+str(jid)+'/graph3/test2.txt').read()
         self.data = self.f[self.f.find('    -'):self.f.find('\n\n\n')].split('\n')[3:]
         self.all_data = []
         for line in self.data:
@@ -1158,9 +1326,9 @@ class LineChartJSONView(BaseLineChartView):
                 self.all_data.append(list(map(float, re.split(r'\s+', line)[0:2])))
             else:
                 break
-        with open('solo_file/media/all_data.csv', 'wb') as f:
+        with open('solo_file/media/data_'+str(jid)+'/graph3/all_data.csv', 'wb') as f:
             np.savetxt(f, self.all_data, fmt='%.2e %.2f', delimiter=',')
-        self.read_data = np.genfromtxt('solo_file/media/all_data.csv')
+        self.read_data = np.genfromtxt('solo_file/media/data_'+str(jid)+'/graph3/all_data.csv')
         x = list(x for x in range(self.read_data.shape[0]))
         y1 = [np.log10(x) for x in self.read_data[:, 0]]
         y2 = self.read_data[:, 1]
@@ -1187,26 +1355,28 @@ class LineChartJSONView(BaseLineChartView):
             list(self.y2_new)
         ]
 
-def main(getTimestamp,identity=5,e_value=0.9):
+def main(getTimestamp,jid,pid,identity=5,e_value=0.9):
     global html_path,identity_cutoff,e_value_cutoff
     identity_cutoff = identity
     e_value_cutoff = e_value
 
-    timestamp = str(getTimestamp)
-    html_path = 'solo_file/media/'+timestamp+"/"
+    print("**************")
+    print(pid)
+    print(jid)
+    print(identity_cutoff)
+    print(e_value_cutoff)
+    print("***************")
+    html_path = 'solo_file/media/'+str(jid)+"/"
     check_and_mk_dir(html_path)
     line_chart_json = LineChartJSONView.as_view()
-    solo_fnc1()
-    solo_fnc2()
+    solo_fnc1(pid,jid)
+    solo_fnc2(pid,jid)
+    user_result=   'solo_file/media/'+str(jid)+"/" 
+    shutil.copy(join(os.getcwd(), 'solo_file/media/data_'+str(jid)+'/graph3/'+str(jid)+'/search_faa1/query.result.txt'), join(join(os.getcwd(), user_result), 'query.result.txt'))    
+    shutil.copy(join(os.getcwd(), "solo_file/media/data_"+str(jid)+"/graph3/search_faa1.faa"), join(join(os.getcwd(), user_result), "search_faa1.faa"))
+    shutil.copy(join(os.getcwd(), "solo_file/media/data_"+str(jid)+"/graph3/search_faa0.clstr"), join(join(os.getcwd(), user_result), "search_faa0.clstr"))
+    shutil.copy(join(os.getcwd(), "solo_file/media/data_"+str(jid)+"/graph3/threshold.txt"), join(join(os.getcwd(), user_result), "threshold.txt"))
 
-    search_faa1_path = os.path.join("solo_file/media/data/graph3/", "search_faa1.faa")
-    search_faa0_path = os.path.join("solo_file/media/data/graph3/", "search_faa0")
-    file_4_5_path = os.path.join("solo_file/media/data/graph3/", "4_5.txt")
-    hmm_output_path = os.path.join("solo_file/media/", "hmm_output")
-    search_faa_path = os.path.join("solo_file/media/", "search.faa")
   
-    shutil.copy(search_faa1_path, 'solo_file/media/{}/'.format(timestamp))
-    shutil.copy(search_faa0_path, 'solo_file/media/{}/'.format(timestamp))
-    shutil.copy(file_4_5_path, 'solo_file/media/{}/'.format(timestamp))
-    shutil.copy(hmm_output_path, 'solo_file/media/{}/'.format(timestamp))
-    shutil.copy(search_faa_path, 'solo_file/media/{}/'.format(timestamp))
+
+

@@ -1,3 +1,0 @@
-0 10 inside
-10 31 transmembrane helix
-31 329 outside

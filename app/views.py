@@ -40,7 +40,9 @@ def file_upload(request):
         job_title = request.POST.get('job_title',None)
         e_value_cutoff = request.POST.get('e_value_cutoff',None)
         identity_cutoff = request.POST.get('identity_cutoff',None)
-        directory = "solo_file/media/"
+        num_jobs=Process.objects.count()+1
+        # directory = "solo_file/media/"
+        directory = "solo_file/media_"+str(num_jobs)+"/"
         if file:
             file_name = file.name
             file_extension = file_name.split('.')[1]
@@ -76,8 +78,9 @@ def file_upload(request):
                 process_object.id,
                 process_object.process_file_name,
                 directory,
+                num_jobs,
                 identity_cutoff=identity_cutoff,
-                e_value_cutoff=e_value_cutoff,
+                e_value_cutoff=e_value_cutoff
             )
             msg = ' and check your process in queue'
             if email:
@@ -98,6 +101,9 @@ def file_upload(request):
                     process_object.id,
                     search_name,
                     directory,
+                    num_jobs,
+                    identity_cutoff,
+                    e_value_cutoff
                 )
                 ctx['msg'] = "File uploaded successfully and your request is processing now"
                 ctx['msg_class'] = 'success'
@@ -129,7 +135,10 @@ def demo_example(request):
         # Get file from request
         email = request.POST.get('email',None)
         job_title = request.POST.get('job_title',None)
-        directory = "solo_file/media/"
+        num_jobs=Process.objects.count()+1
+        print(num_jobs)
+        # directory = "solo_file/media/"
+        directory = "solo_file/media_"+str(num_jobs)+"/"
         process_file_name = "search.faa"
 
         # Save values in the process table
@@ -147,6 +156,7 @@ def demo_example(request):
             process_object.id,
             process_object.process_file_name,
             directory,
+            num_jobs
         )
         msg = ' and check your process in queue'
         if email:
@@ -196,7 +206,7 @@ def contact(request):
                 "New contact form submission",
                 content,
                 "Your website" +'',
-                ['abcfinder47@gmail.com'],
+                # ['abcfinder47@gmail.com'],
                 headers = {'Reply-To': contact_email }
             )
             email.send()      

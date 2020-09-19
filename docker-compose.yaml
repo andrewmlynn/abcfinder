@@ -1,6 +1,12 @@
 version: '3.7'
 
 services:
+  docker-in-docker:
+    image: docker:dind
+    privileged: true
+    expose:
+      - 2375
+      - 2376
   db:
     container_name: db
     hostname: db
@@ -31,6 +37,7 @@ services:
     command: bash -c "python /django_app/manage.py migrate --noinput && python /django_app/manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/django_app
+      - /home/scis/rough/abcfinder_complete_working
     ports:
       - "80:8000"
     # depends_on:
@@ -49,10 +56,13 @@ services:
     command: celery --app=webserver worker --loglevel=INFO
     volumes:
       - .:/django_app
+      - /usr/bin/docker:/usr/local/bin/docker
+      - /var/run/docker.sock:/var/run/docker.sock:rw
     depends_on:
       - db
       - redis
       - web
+      - docker-in-docker
     networks:
       - main
     restart: on-failure  
@@ -63,8 +73,8 @@ services:
         
       resources:
         limits:
-          cpus: '0.50'
-          memory: 2G
+          cpus: '0.70'
+          memory: 4G
         reservations:
           cpus: '0.25'
           memory: 1G
