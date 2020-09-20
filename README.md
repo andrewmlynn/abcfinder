@@ -1,4 +1,5 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3733587.svg)](https://doi.org/10.5281/zenodo.3733587)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4039121.svg)](https://doi.org/10.5281/zenodo.4039121)
 
 # Overview 
 ABC-Finder i.e., A Docker-based package for the identification of ABC proteins in all organisms, and downstream analysis and visualization of the topology of ABC proteins using an interactive web browser. ABC-Finder is built and deployed in a Linux container, making it scalable for many concurrent users on our servers and also enabling users to download and run ABC-Finder locally. Overall, ABC-Finder is an extremely convenient, portable and platform-independent package for the identification and subsequent domain prediction of ABC proteins. 
