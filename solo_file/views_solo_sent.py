@@ -1117,7 +1117,9 @@ def getPlotly2D_3(plot_path,pid,jid):
 
                   )
     ind_1 = 0
-    eStr = "Scale"
+    #if you just want to show blue box just delete scale if you want to show NBD write  Scale
+    #eStr = "Scale"
+    eStr = " "
     trace = go.Scatter(x=[-70], y=[-40], mode='text', showlegend=False, text=eStr,
                        textfont=dict(size=70, color='rgb(0,0,0)'),orientation = 'v')
     traceList.append(trace)
@@ -1235,8 +1237,8 @@ def getPlotly2D_3(plot_path,pid,jid):
                     traceList.append(trace)
             traceList.append(tracedown)
             traceList.append(traceup)
-
-            eStr = "NBD" + str(eNumber)
+            #if you want to hide NBD comment it  
+            #eStr = "NBD" + str(eNumber)
             trace = go.Scatter(x=[int((x1 + x2) / 2)], y=[pos_y], mode='text', text=eStr, showlegend=False,orientation = 'v',
                                textfont=dict(color='rgb(255,255,255)', size=70))
             traceList.append(trace)
