@@ -561,7 +561,7 @@ def get_plotv2_file(path_file,pid,jid):
     
     print("generating plotv2 file")
     user_result= 'solo_file/media/'+str(jid)+"/"
-    cmd1='/usr/local/bin/docker run -e USER_ID=$(id -u $USER) -v /topcons/data/topcons2_database:/data/topcons2_database -v /rough/abcfinder_complete_working//solo_file/media/data_'+str(jid)+'/graph3:/tmp/ -it --name '+str(jid)+' -d --cpus 0.6 nanjiang/topcons2'
+    cmd1='/usr/local/bin/docker run -e USER_ID=$(id -u $USER) -v data/topcons2_database:/data/topcons2_database -v abcfinder/solo_file/media/data_'+str(jid)+'/graph3:/tmp/ -it --name '+str(jid)+' -d --cpus 0.6 nanjiang/topcons2'
     out1=subprocess.Popen(cmd1, stdout=subprocess.PIPE, shell=True, cwd=os.path.join(os.getcwd(),"")).communicate()[0]
     time.sleep(10)
     cmd2='/usr/local/bin/docker exec --user user '+str(jid)+' script /dev/null -c "/app/topcons2/run_topcons2.sh /tmp/search_faa1.faa -outpath  /tmp/'+str(jid)+'/"'
