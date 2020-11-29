@@ -29,10 +29,6 @@ RUN . /opt/conda/etc/profile.d/conda.sh && \
    pip3 install -r requirements.txt && \ 
     conda clean -y --all
 
-# Setup the webdriver
-RUN apt-get update && apt-get install -y firefox-esr 
-#RUN apt-get update   
-
 
 # Plotly depedencies
 RUN apt-get install -y --no-install-recommends \
@@ -44,7 +40,7 @@ RUN apt-get install -y --no-install-recommends \
         libgconf-2-4 \
         libnss3 \
         libasound2 
-#RUN apt-get update && apt-get install -y firefox-esr 
+
 
 
 
