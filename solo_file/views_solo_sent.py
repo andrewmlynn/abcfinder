@@ -3,8 +3,6 @@ from io import BytesIO
 import calendar
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-# from selenium.webdriver.common.keys import Keys
-# from selenium import webdriver
 import re
 import time
 import os
@@ -19,30 +17,14 @@ import urllib.request
 from os import listdir
 from os.path import isfile, join
 import subprocess
-# from .models import Seed
-# from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-#from Bio import SeqIO
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-
-# changed part
 import shutil
 import urllib.request as req
 from contextlib import closing
-
 import requests
 from bs4 import BeautifulSoup
 from django.views.generic import TemplateView
@@ -54,7 +36,6 @@ from os import listdir
 from os.path import isfile, join
 import numpy as np
 import zipfile
-
 from chartjs.views.lines import BaseLineChartView
 import re
 import pandas as pd
@@ -88,11 +69,6 @@ import plotly.tools as tls
 import plotly.io as pio
 pio.orca.config.executable = '/opt/conda/bin/orca'
 pio.orca.config.save()
-# from ipywidgets import interactive, HBox, VBox, widgets, interact
-######################
-
-# cap = DesiredCapabilities().FIREFOX
-
 xList = []
 fileN = []
 markList = []
