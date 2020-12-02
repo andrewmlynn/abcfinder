@@ -206,7 +206,7 @@ def contact(request):
                 "New contact form submission",
                 content,
                 "Your website" +'',
-                # ['abcfinder47@gmail.com'],
+                # ['@gmail.com'],
                 headers = {'Reply-To': contact_email }
             )
             email.send()      
