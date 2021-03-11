@@ -3,8 +3,11 @@
 ABC-Finder i.e., A Docker-based package for the identification of ABC proteins in all organisms, and downstream analysis and visualization of the topology of ABC proteins using an interactive web browser. ABC-Finder is built and deployed in a Linux container, making it scalable for many concurrent users on our servers and also enabling users to download and run ABC-Finder locally. Overall, ABC-Finder is an extremely convenient, portable and platform-independent package for the identification and subsequent domain prediction of ABC proteins. 
 
 # Workflow
-![abc-finder: workflow](https://github.com/lynngroup/abcfinder/blob/master/ABC-finder.png)
+![abc-finder: workflow](https://github.com/LynnGroup-SCIS-JNU/ABC-finder/blob/master/abc-finder_feb.svg)
 Fig : Generalized workflow and implementation of ABC-Finder. 
+
+![abc-finder: workflow](https://github.com/LynnGroup-SCIS-JNU/ABC-finder/blob/master/ABC-finder%20Result.png)
+Fig : ABC-Finder Result. 
 # Licence
 This program is released as open source software under the terms of [GNU GPLv3](https://github.com/lynngroup/abcfinder/blob/master/LICENSE).
 
